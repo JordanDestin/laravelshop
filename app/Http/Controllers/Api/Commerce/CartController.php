@@ -102,7 +102,7 @@ class CartController extends Controller
         // $count = (new CartRepository())->count();
 
         $count = Cart::getContent()->sum('quantity');
-dd($count);
+
         return response()->json([
             'count' => $count
         ]);

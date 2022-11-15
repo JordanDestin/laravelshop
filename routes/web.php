@@ -19,6 +19,9 @@ Route::post('login', [
 Route::post('logout', [
     \App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy']);
 
+Route::post('register', [
+    \App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
+
 Route::view('/{any?}', 'dashboard')
     ->name('dashboard')
     ->where('any', '.*');

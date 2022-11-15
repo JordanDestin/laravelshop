@@ -2,13 +2,39 @@
 import { onMounted, ref } from "vue";
 import useProducts from "../composable/products";
 import emitter from "tiny-emitter/instance";
+import { useRouter } from "vue-router";
 
-const { getCount } = useProducts();
+const router = useRouter();
+
+const { processing } = useProducts();
 //const emitter = new Emitter();
 
 const cartCount = ref(0);
 
-const isloged = ref(false);
+let isloged = false;
+
+if (localStorage.getItem("loggedIn")) {
+  isloged = true;
+}
+
+const logout = async () => {
+  // if (processing.value) return
+
+  // processing.value = true
+  console.log("qsdqsdqs");
+  axios
+    .post("logout")
+    .then((response) => {
+      localStorage.removeItem("loggedIn");
+      router.push("/login");
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      processing.value = false;
+    });
+};
 
 emitter.on("cartCount", function (count) {
   cartCount.value = count;
@@ -19,9 +45,8 @@ emitter.on("cartCount", function (count) {
   <div class="navbar bg-base-100">
     <div class="flex-1">
       <router-link :to="{ path: '/' }">
-                <button class="btn btn-ghost normal-case text-xl">daisyUI</button>
-              </router-link>
-    
+        <button class="btn btn-ghost normal-case text-xl">daisyUI</button>
+      </router-link>
     </div>
     <div class="flex-none">
       <!-- Search form -->
@@ -118,16 +143,14 @@ emitter.on("cartCount", function (count) {
           class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
         >
           <li>
-            <router-link to="/login"> se connecter </router-link>
-          </li>
-          <li>
-            <a class="justify-between">
-              Profile
-              <span class="badge">New</span>
-            </a>
+            <router-link to="/profile"> Profile</router-link>
+            
           </li>
           <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
+          <li>
+            
+            <a @click="logout">Logout</a>
+          </li>
         </ul>
       </div>
     </div>

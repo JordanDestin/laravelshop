@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('image');
             $table->boolean('active');
             $table->integer('price');
+            $table->boolean('tendance')->default(false);
+          
             $table->timestamps();
         });
     }

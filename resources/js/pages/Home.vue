@@ -1,49 +1,42 @@
 <script setup>
-
-import { onMounted,ref } from 'vue';
-import useProducts from '../composable/products';
-import emitter from 'tiny-emitter/instance';
-import Navbar from '../components/Navbar.vue';
-
-//const emitter = new Emitter();
+import { onMounted, watch,ref } from "vue";
+import useProducts from "../composable/products";
+import emitter from "tiny-emitter/instance";
+import Navbar from "../components/Navbar.vue";
+import Categories from "../components/Categories.vue";
+import Carousel from "../components/Carousel.vue";
+import { formatPrice } from "../helper";
+import { TailwindPagination } from "laravel-vue-pagination";
 
 const { products, getProducts, addProduct } = useProducts();
 
-// const addToCart = async(id) => {
-//  await axios.get('/sanctum/csrf-cookie');
-//  await axios.get('/api/user')
-//   .then(async(res)=>{
-//     let carCount = await addProduct(id);
-//     console.log(carCount,"qsdqsd")
-//     emitter.emit('cartCount', carCount);
-//   })
-//   .catch(err => console.log(err))    
-// }
+const addToCart = async (id) => {
+  console.log(id);
+  let carCount = await addProduct(id);
 
-const addToCart = async(id) => {
+  emitter.emit("cartCount", carCount);
+};
 
-    let carCount = await addProduct(id);
+const selectCategorie = ref('')
 
-    console.log(carCount,"toto")
-    emitter.emit('cartCount', carCount);
+emitter.on("categoryId", function (id) {
+  console.log(id, "coucou");
+  selectCategorie.value = id;
+});
 
-   
-}
-
+watch(selectCategorie,(current, previous) => {
+  getProducts(1,current)
+})
 
 onMounted(getProducts);
-
 </script>
 
 <template>
+  <Navbar />
   <div class="flex h-screen overflow-hidden">
     <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <main>
         <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-        <!-- <Navbar/> -->
-   
-
-
           <!-- Filters -->
           <div class="mb-4 border-b border-slate-200">
             <ul
@@ -87,24 +80,27 @@ onMounted(getProducts);
 
           <!-- Page content -->
           <div>
+            <Carousel />
+            <Categories />
             <!-- Cards 2 (Digital Goods) -->
             <div class="mt-8">
               <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">
                 Digital Goods
               </h2>
 
-  
-              <div class="grid grid-cols-12 gap-6" >
+              <div class="grid grid-cols-12 gap-6">
                 <!-- Card 1 -->
                 <div
-                  class="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden" v-for="product in products"
+                  class="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden"
+                  v-for="product in products.data"
+                  :key="product.id"
                 >
                   <div class="flex flex-col h-full">
                     <!-- Image -->
                     <div class="relative">
                       <img
                         class="w-full"
-                        :src=  "product.image" 
+                        :src="product.image"
                         width="286"
                         height="160"
                         alt="Application 05"
@@ -135,6 +131,10 @@ onMounted(getProducts);
                           <h3 class="text-lg text-slate-800 font-semibold mb-1">
                             {{ product.name }}
                           </h3>
+
+                          <h3 class="text-lg text-slate-800 font-semibold mb-1">
+                           Catégorie: {{ product.category }}
+                          </h3>
                           <div class="text-sm">
                             {{ product.description }}
                           </div>
@@ -161,146 +161,24 @@ onMounted(getProducts);
                             <div
                               class="inline-flex text-sm font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2 py-0.5"
                             >
-                            {{ product.price }}
+                              {{ formatPrice(product.price) }}
                             </div>
                           </div>
                         </div>
                       </div>
                       <!-- Card footer -->
-                      <button class="btn btn-primary" @click="addToCart(product.id)">Ajouter au panier</button>
+                      <button class="btn btn-primary" @click="addToCart(product.id)">
+                        Ajouter au panier
+                      </button>
                     </div>
                   </div>
                 </div>
 
-     
-              </div>
-            </div>
-
-            <!-- Cards 6 (Trending Now) -->
-            <div class="mt-8">
-              <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">
-                Trending Now
-              </h2>
-              <div class="grid grid-cols-12 gap-6">
-                <!-- Card 1 -->
-                <div
-                  class="relative col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden"
-                >
-                  <!-- Image -->
-                  <img
-                    class="absolute w-full h-full object-cover"
-                    src="#"
-                    width="286"
-                    height="160"
-                    alt="Application 17"
-                  />
-                  <!-- Gradient -->
-                  <div
-                    class="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent"
-                    aria-hidden="true"
-                  ></div>
-                  <!-- Content -->
-                  <div class="relative h-full p-5 flex flex-col justify-end">
-                    <h3 class="text-lg text-white font-semibold mt-16 mb-0.5">
-                      Merchandise
-                    </h3>
-                    <a
-                      class="text-sm font-medium text-indigo-400 hover:text-indigo-300"
-                      href="#0"
-                      >Explore -&gt;</a
-                    >
-                  </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div
-                  class="relative col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden"
-                >
-                  <!-- Image -->
-                  <img
-                    class="absolute w-full h-full object-cover"
-                    src=""
-                    width="286"
-                    height="160"
-                    alt="Application 18"
-                  />
-                  <!-- Gradient -->
-                  <div
-                    class="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent"
-                    aria-hidden="true"
-                  ></div>
-                  <!-- Content -->
-                  <div class="relative h-full p-5 flex flex-col justify-end">
-                    <h3 class="text-lg text-white font-semibold mt-16 mb-0.5">
-                      Audiobooks
-                    </h3>
-                    <a
-                      class="text-sm font-medium text-indigo-400 hover:text-indigo-300"
-                      href="#0"
-                      >Explore -&gt;</a
-                    >
-                  </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div
-                  class="relative col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden"
-                >
-                  <!-- Image -->
-                  <img
-                    class="absolute w-full h-full object-cover"
-                    src=""
-                    width="286"
-                    height="160"
-                    alt="Application 19"
-                  />
-                  <!-- Gradient -->
-                  <div
-                    class="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent"
-                    aria-hidden="true"
-                  ></div>
-                  <!-- Content -->
-                  <div class="relative h-full p-5 flex flex-col justify-end">
-                    <h3 class="text-lg text-white font-semibold mt-16 mb-0.5">
-                      Design & Tech
-                    </h3>
-                    <a
-                      class="text-sm font-medium text-indigo-400 hover:text-indigo-300"
-                      href="#0"
-                      >Explore -&gt;</a
-                    >
-                  </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div
-                  class="relative col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden"
-                >
-                  <!-- Image -->
-                  <img
-                    class="absolute w-full h-full object-cover"
-                    src=""
-                    width="286"
-                    height="160"
-                    alt="Application 20"
-                  />
-                  <!-- Gradient -->
-                  <div
-                    class="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent"
-                    aria-hidden="true"
-                  ></div>
-                  <!-- Content -->
-                  <div class="relative h-full p-5 flex flex-col justify-end">
-                    <h3 class="text-lg text-white font-semibold mt-16 mb-0.5">
-                      Apps & Software
-                    </h3>
-                    <a
-                      class="text-sm font-medium text-indigo-400 hover:text-indigo-300"
-                      href="#0"
-                      >Explore -&gt;</a
-                    >
-                  </div>
-                </div>
+                <TailwindPagination
+                  :data="products"
+                  @pagination-change-page="getProducts"
+                  class="btn-group"
+                />
               </div>
             </div>
           </div>

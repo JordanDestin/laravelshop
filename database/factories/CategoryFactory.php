@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
-class OrderFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'order_number' => uniqid(),
-            'total_order'=> rand(1000, 15000)
+            'name' => $this->faker->text(8),
         ];
     }
 }

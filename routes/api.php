@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Commerce\ProductController;
+use App\Http\Controllers\Api\Commerce\CategoryController;
 use App\Http\Controllers\Api\Commerce\CartController;
+use App\Http\Controllers\Api\Commerce\StripeCheckoutController;
+use App\Http\Controllers\Api\Commerce\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,22 +19,20 @@ use App\Http\Controllers\Api\Commerce\CartController;
 |
 */
 
-// Route::middleware(['auth:sanctum'])->group(function () {
-
-//     Route::get('/user', function(Request $request){
-//         return $request->user();
-//     }) ; 
-//     Route::apiResource('carts', CartController::class);
-//     Route::get('carts/count', [CartController::class, 'count']);
-    
-// });
 
 
 Route::group(['middleware' =>['auth:sanctum']], function(){
-    Route::get('/user', function(Request $request){
-        return $request->user();
-    }) ; 
+    // Route::get('/user', function(Request $request){
+    //     return $request->user();
+    // }) ; 
    
+     Route::post('paymentIntent',[StripeCheckoutController::class,'paymentIntent']);
+
+     Route::get('orders',[OrderController::class,'index'])->name('orders.index');
+     Route::post('orders',[OrderController::class,'store'])->name('orders.store');
+
+     Route::get('order/{id}',[OrderController::class,'detailOrder'])->name('order.detailOrder');
+
 });
 
 
@@ -51,6 +52,7 @@ Route::get('carts/removecart', [CartController::class, 'removeCart'])->name('car
 
 
 Route::get('products', [ProductController::class, 'index']);
+Route::get('categories', [CategoryController::class, 'index']);
 
 
 

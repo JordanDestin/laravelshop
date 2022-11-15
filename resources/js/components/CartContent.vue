@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from "vue";
 import useProducts from "../composable/products";
 import { formatPrice } from "../helper/index";
+import Navbar from "./Navbar.vue";
 
 const {
   cartContent,
@@ -13,14 +14,17 @@ const {
   totalcart,
   cartCount,
   getCount,
-  removeCart
+ // removeCart,
 } = useProducts();
 
-const cartTotals = computed(()=>{
-    let price = Object.values(contents.value).reduce((acc, content) => acc += content.price * content.quantity, 0);
+const cartTotals = computed(() => {
+  let price = Object.values(contents.value).reduce(
+    (acc, content) => (acc += content.price * content.quantity),
+    0
+  );
 
-    return formatPrice(price);
-})
+  return formatPrice(price);
+});
 
 const decrease = async (id) => {
   await decreaseQuantity(id);
@@ -37,38 +41,22 @@ const deleteProduct = async (id) => {
   await cartContent();
 };
 
-const deleteCart = async() =>{
-    console.log("qsdqsd")
-    await removeCart();
-    await cartContent();
-}
-
 onMounted(cartContent);
-
-
 </script>
 
 <template>
+  <Navbar/>
   <div>
     <div class="flex justify-center my-6">
       <div
         class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5"
       >
-        <div class="mb-3">
-          <div class="flex text-sm font-medium text-slate-400 space-x-2">
-            <span class="text-indigo-500">Review</span>
-            <span>-&gt;</span>
-            <span class="text-slate-500">Payment</span>
-            <span>-&gt;</span>
-            <span class="text-slate-500">Confirm</span>
-          </div>
-        </div>
         <header class="mb-2">
           <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">
             Shopping Cart (3) ✨{{ formatPrice(totalcart) }} count{{ cartCount }}
           </h1>
         </header>
-        <button class="btn btn-primary" @click="deleteCart()">Vider le panier</button>
+
         <div class="flex-1">
           <table class="w-full text-sm lg:text-base" cellspacing="0">
             <thead>
@@ -157,11 +145,9 @@ onMounted(cartContent);
                   </div>
                   <div
                     class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
-                  >
-                    
-                  </div>
+                  ></div>
                 </div>
-                <a href="/checkout">
+                <router-link :to="{ path: '/payment' }">
                   <button
                     class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
                   >
@@ -180,7 +166,7 @@ onMounted(cartContent);
                     </svg>
                     <span class="ml-2 mt-5px">Passer à la caisse</span>
                   </button>
-                </a>
+                </router-link>
               </div>
             </div>
           </div>

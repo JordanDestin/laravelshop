@@ -1,15 +1,19 @@
 import axios from "axios";
-import { ref } from "vue";
+import { ref,inject } from "vue";
 
 export default function useProducts() {
-    const products = ref([]);
+    const products = ref({});
     const cartCount = ref(0);
     const totalcart = ref(0);
     const contents = ref([]);
+    const toast = inject('toast');
 
-    const getProducts = async () => {
-        await axios.get("api/products").then((response) => {
-            products.value = response.data.listproducts;
+    const getProducts = async (page=1,category='' ) => {
+        await axios.get("api/products?page="+page+'&category='+category)
+        .then((response) => {
+            console.log(response.data)
+          //  products.value = response.data.listproducts;
+            products.value = response.data;
         });
     };
 
@@ -29,8 +33,15 @@ export default function useProducts() {
     };
 
     const addProduct = async (id) => {
+
+        console.log('coucou')
         let response = await axios.post("/api/carts", { id: id });
+        
         cartCount.value = response.data.count;
+
+        toast.success("Article bien Ajouté", {
+            position:"top-right"
+        });
         console.log(cartCount.value,"addcart")
         return response.data.count;
     };
@@ -47,10 +58,10 @@ export default function useProducts() {
         let response = await axios.delete("/api/carts/"+id);
     };
 
-    const removeCart = async() =>{
-        await axios.delete("/api/carts/removecart");
+    // const removeCart = async() =>{
+    //     await axios.delete("/api/carts/removecart");
        
-    };
+    // };
 
     // const cartTotal = async()=> {
     //     let response = await axios.get("/api/carts/total");
@@ -74,6 +85,6 @@ export default function useProducts() {
         cartCount,
        // cartTotal,
         totalcart,
-        removeCart
+       // removeCart
     };
 }
