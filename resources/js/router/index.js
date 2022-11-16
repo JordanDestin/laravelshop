@@ -10,6 +10,10 @@ import Orders from "../components/Orders.vue";
 import Settings from "../components/setting.vue";
 import DetailOrder from "../components/DetailOrder.vue";
 import ThankYou from "../components/ThankYou.vue";
+import Dashboard from "../components/admin/Dashboard.vue";
+import CreateProduct from "../components/admin/product/CreateProduct.vue";
+import ListProduct from "../components/admin/product/ListProduct.vue";
+import ListCategory from "../components/admin/category/ListCategory.vue";
 
 const routes = [
     {
@@ -64,6 +68,28 @@ const routes = [
         name: "payment",
         component: Payment,
         meta: { requiresAuth: true },
+    },
+    // ADMIN
+    {
+        path: "/dashboard",
+        name: "dashboard",
+        component: Dashboard,
+       
+        children :[
+            {
+                path:"list-product",
+                component: ListProduct
+            },
+            {
+                path:"create-product",
+                component: CreateProduct
+            },
+            {
+                path:"list-category",
+                component: ListCategory
+            },
+            
+        ]
     },
 ];
 

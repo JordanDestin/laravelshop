@@ -16,4 +16,9 @@ class CategoryController extends Controller
             'listcategory'=>$category
         ], 200); 
     }
+
+    public function store (Request $request)
+    {
+        
+    }
 }

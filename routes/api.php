@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Commerce\CategoryController;
 use App\Http\Controllers\Api\Commerce\CartController;
 use App\Http\Controllers\Api\Commerce\StripeCheckoutController;
 use App\Http\Controllers\Api\Commerce\OrderController;
+use App\Http\Controllers\Api\Admin\ProductBackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +34,12 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
 
      Route::get('order/{id}',[OrderController::class,'detailOrder'])->name('order.detailOrder');
 
-});
+     //ADMIN
+     
 
+     
+});
+Route::get('list-product', [ProductBackController::class, 'index']);
 
 Route::apiResource('carts', CartController::class);
 
@@ -43,14 +48,6 @@ Route::get('carts/total', [CartController::class, 'cartTotal'])->name('cart.cart
 Route::get('carts/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
 Route::get('carts/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
 Route::get('carts/removecart', [CartController::class, 'removeCart'])->name('cart.removeCart');
-
-// Route::group(['middleware' =>['auth:sanctum']], function(){
-//     Route::get('/user', function(Request $request)){
-//         return $request->user();
-//     }
-// });
-
-
 Route::get('products', [ProductController::class, 'index']);
 Route::get('categories', [CategoryController::class, 'index']);
 
