@@ -11,8 +11,6 @@ export default function useProducts() {
     const getProducts = async (page=1,category='' ) => {
         await axios.get("api/products?page="+page+'&category='+category)
         .then((response) => {
-            console.log(response.data)
-          //  products.value = response.data.listproducts;
             products.value = response.data;
         });
     };

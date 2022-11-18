@@ -8,7 +8,7 @@ export default function useCategories() {
         await axios.get("/api/categories")
         .then((response)=> {
             console.log(response)
-            categories.value = response.data.listcategory
+            categories.value = response.data.data
         })
     }
 

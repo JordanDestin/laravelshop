@@ -10,26 +10,13 @@ const selectCategory = (id) => {
   emitter.emit("categoryId", id);
 };
 
-defineEmits(['selectCategory'])
+defineEmits(["selectCategory"]);
 
 onMounted(getCategories);
 </script>
 
 <template>
-  <!-- Filters -->
-  <div class="mb-4 border-b border-slate-200">
-    <ul
-      class="text-sm font-medium flex"
-      v-for="(category, index) in categories"
-      :key="category.id"
-    >
-      <li
-        class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8"
-      >
-        {{ category.name }}
-      </li>
-    </ul>
-  </div>
+  
   <!-- Cards 6 (Trending Now) -->
   <div class="mt-8">
     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">Trending Now</h2>
@@ -52,21 +39,19 @@ onMounted(getCategories);
 
         <button type="button" @click="selectCategory(category.id)">
           <!-- <button type="button" @click="$emit(selectCategory,category.id)"> -->
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent"
-          aria-hidden="true"
-          
-        >
-          qsdqsd
-        </div>
-        <!-- Content -->
-        <div class="relative h-full p-5 flex flex-col justify-end">
-          <h3 class="text-lg text-white font-semibold mt-16 mb-0.5">
-            {{ category.name }}
-          </h3>
-        </div>
-      </button>
-
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent"
+            aria-hidden="true"
+          >
+       
+          </div>
+          <!-- Content -->
+          <div class="relative h-full p-5 flex flex-col justify-end">
+            <h3 class="text-lg text-white font-semibold mt-16 mb-0.5">
+              {{ category.name }}
+            </h3>
+          </div>
+        </button>
       </div>
     </div>
   </div>

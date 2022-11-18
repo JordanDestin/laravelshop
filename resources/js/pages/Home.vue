@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted, watch,ref } from "vue";
+import { onMounted, watch, ref } from "vue";
 import useProducts from "../composable/products";
+import useCategories from "../composable/categories";
 import emitter from "tiny-emitter/instance";
 import Navbar from "../components/Navbar.vue";
 import Categories from "../components/Categories.vue";
@@ -9,6 +10,7 @@ import { formatPrice } from "../helper";
 import { TailwindPagination } from "laravel-vue-pagination";
 
 const { products, getProducts, addProduct } = useProducts();
+const { getCategories, categories } = useCategories();
 
 const addToCart = async (id) => {
   console.log(id);
@@ -17,18 +19,21 @@ const addToCart = async (id) => {
   emitter.emit("cartCount", carCount);
 };
 
-const selectCategorie = ref('')
+const selectCategorie = ref("");
 
 emitter.on("categoryId", function (id) {
   console.log(id, "coucou");
   selectCategorie.value = id;
 });
 
-watch(selectCategorie,(current, previous) => {
-  getProducts(1,current)
-})
+watch(selectCategorie, (current, previous) => {
+  getProducts(1, current);
+});
 
-onMounted(getProducts);
+onMounted(async () => {
+  await getProducts();
+  await getCategories();
+});
 </script>
 
 <template>
@@ -38,42 +43,18 @@ onMounted(getProducts);
       <main>
         <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
           <!-- Filters -->
-          <div class="mb-4 border-b border-slate-200">
+          <div class="mb-4 border-b flex border-slate-200">
             <ul
-              class="text-sm font-medium flex flex-nowrap -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-scroll no-scrollbar"
+              class="text-sm font-medium mx-4 sm:-mx-6 lg:-mx-8"
+              v-for="category in categories"
+              :key="category.id"
             >
               <li
                 class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8"
               >
-                <a class="text-indigo-500 whitespace-nowrap" href="#0">View All</a>
-              </li>
-              <li
-                class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8"
-              >
-                <a class="text-slate-500 hover:text-slate-600 whitespace-nowrap" href="#0"
-                  >Courses</a
-                >
-              </li>
-              <li
-                class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8"
-              >
-                <a class="text-slate-500 hover:text-slate-600 whitespace-nowrap" href="#0"
-                  >Digital Goods</a
-                >
-              </li>
-              <li
-                class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8"
-              >
-                <a class="text-slate-500 hover:text-slate-600 whitespace-nowrap" href="#0"
-                  >Online Events</a
-                >
-              </li>
-              <li
-                class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8"
-              >
-                <a class="text-slate-500 hover:text-slate-600 whitespace-nowrap" href="#0"
-                  >Crowdfunding</a
-                >
+                <a class="text-indigo-500 whitespace-nowrap" href="#0">{{
+                  category.name
+                }}</a>
               </li>
             </ul>
           </div>
@@ -133,7 +114,7 @@ onMounted(getProducts);
                           </h3>
 
                           <h3 class="text-lg text-slate-800 font-semibold mb-1">
-                           Catégorie: {{ product.category }}
+                            Catégorie: {{ product.category }}
                           </h3>
                           <div class="text-sm">
                             {{ product.description }}
@@ -176,7 +157,7 @@ onMounted(getProducts);
 
                 <TailwindPagination
                   :data="products"
-                  @pagination-change-page="getProducts"
+                  @pagination-change-page="page => getProducts(page, selectCategorie)"
                   class="btn-group"
                 />
               </div>

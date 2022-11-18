@@ -36,10 +36,12 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
 
      //ADMIN
      
-
+  //   Route::get('list-product', [ProductBackController::class, 'index']);
+   //  Route::get('admin-products', [ProductBackController::class, 'index']);
+     Route::apiResource('admin-products', ProductBackController::class);
      
 });
-Route::get('list-product', [ProductBackController::class, 'index']);
+
 
 Route::apiResource('carts', CartController::class);
 
