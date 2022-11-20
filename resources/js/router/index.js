@@ -15,6 +15,9 @@ import CreateProduct from "../components/admin/product/CreateProduct.vue";
 import ListProduct from "../components/admin/product/ListProduct.vue";
 import ListCategory from "../components/admin/category/ListCategory.vue";
 import Product from "../components/admin/product/Product.vue";
+import ListOrder from "../components/admin/orders/ListOrder.vue";
+import ListUser from "../components/admin/user/ListUser.vue";
+import OrdersUser from "../components/admin/user/UserOrder.vue"
 
 const routes = [
     {
@@ -95,6 +98,19 @@ const routes = [
             {
                 path:"list-category",
                 component: ListCategory
+            },
+            {
+                path:"list-order",
+                component: ListOrder,
+            },
+            {
+                path:"list-user",
+                component: ListUser,
+            },
+            {
+                path: "order-user/:id",
+                component: OrdersUser,
+                meta: { requiresAuth: true },
             },
             
         ]

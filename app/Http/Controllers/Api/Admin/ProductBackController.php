@@ -13,6 +13,8 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterventionImage;
 
+use App\Http\Resources\UserResource;
+
 
 class ProductBackController extends Controller
 {

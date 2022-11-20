@@ -3,11 +3,13 @@ import { onMounted, ref } from "vue";
 import useAuth from "../composable/auth";
 import emitter from "tiny-emitter/instance";
 import { useRouter } from "vue-router";
+import useProducts from "../composable/products";
 
 const router = useRouter();
 
 const { processing, logout, user } = useAuth();
-//const emitter = new Emitter();
+
+const { totalcart } = useProducts();
 
 const cartCount = ref(0);
 
@@ -16,25 +18,6 @@ let isloged = false;
 if (localStorage.getItem("loggedIn")) {
   isloged = true;
 }
-
-// const logout = async () => {
-//   // if (processing.value) return
-
-//   // processing.value = true
-//   console.log("qsdqsdqs");
-//   axios
-//     .post("logout")
-//     .then((response) => {
-//       localStorage.removeItem("loggedIn");
-//       router.push("/login");
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     })
-//     .finally(() => {
-//       processing.value = false;
-//     });
-// };
 
 emitter.on("cartCount", function (count) {
   cartCount.value = count;
