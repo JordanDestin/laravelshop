@@ -4,7 +4,7 @@ import useCategories from "../../../composable/categories.js";
 import useProductsBack from "../../../composable/admin/product/productBack";
 
 const { getCategories, categories } = useCategories();
-const { addProduct, validationErrors, isLoading } = useProductsBack();
+const { createProduct, validationErrors, isLoading } = useProductsBack();
 
 const product = reactive({
   name: "",
@@ -28,7 +28,7 @@ onMounted(getCategories);
       <h1 class="font-semibold text-slate-800">Création d'un produit</h1>
     </header>
     <div class="container">
-      <form @submit.prevent="addProduct(product)">
+      <form @submit.prevent="createProduct(product)">
         <!-- Title -->
         <div>
           <label for="product-name" class="block font-medium text-sm text-gray-700">

@@ -2,6 +2,11 @@ import axios from "axios";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 
+const user = reactive({
+    name:'',
+    email:''
+});
+
 export default function useAuth() {
     const processing = ref(false);
     const validationErrors = ref({});
@@ -57,14 +62,23 @@ export default function useAuth() {
     };
 
     const loginUser = (response) => {
+        user.name =response.data.name;
+        user.email =response.data.email;
         localStorage.setItem("loggedIn", JSON.stringify(true));
         router.push("/");
     };
 
-    const logout = async () => {
-        // if (processing.value) return
+    const getUser = () => {
+        axios.get('api/user')
+            .then(response =>{
+                loginUser(response)
+            })
+    }
 
-        // processing.value = true
+    const logout = async () => {
+         if (processing.value) return
+
+         processing.value = true
         console.log("qsdqsdqs");
         axios
             .post("logout")
@@ -89,5 +103,7 @@ export default function useAuth() {
         registerForm,
         logout,
         processing,
+        getUser,
+        user,
     };
 }

@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\Commerce\CartController;
 use App\Http\Controllers\Api\Commerce\StripeCheckoutController;
 use App\Http\Controllers\Api\Commerce\OrderController;
 use App\Http\Controllers\Api\Admin\ProductBackController;
+use App\Models\Product;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +25,9 @@ use App\Http\Controllers\Api\Admin\ProductBackController;
 
 
 Route::group(['middleware' =>['auth:sanctum']], function(){
-    // Route::get('/user', function(Request $request){
-    //     return $request->user();
-    // }) ; 
+    Route::get('/user', function(Request $request){
+        return $request->user();
+    }) ; 
    
      Route::post('paymentIntent',[StripeCheckoutController::class,'paymentIntent']);
 
@@ -35,10 +37,13 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
      Route::get('order/{id}',[OrderController::class,'detailOrder'])->name('order.detailOrder');
 
      //ADMIN
-     
-  //   Route::get('list-product', [ProductBackController::class, 'index']);
-   //  Route::get('admin-products', [ProductBackController::class, 'index']);
      Route::apiResource('admin-products', ProductBackController::class);
+     
+
+     Route::get('product/{product}', [ProductBackController::class,'show']);
+     Route::post('product/{product}', [ProductBackController::class,'update']);
+     Route::delete('product/{product}', [ProductBackController::class,'destroy']);
+ 
      
 });
 

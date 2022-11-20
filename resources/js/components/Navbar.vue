@@ -1,12 +1,12 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import useProducts from "../composable/products";
+import useAuth from "../composable/auth";
 import emitter from "tiny-emitter/instance";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const { processing } = useProducts();
+const { processing, logout, user } = useAuth();
 //const emitter = new Emitter();
 
 const cartCount = ref(0);
@@ -17,24 +17,24 @@ if (localStorage.getItem("loggedIn")) {
   isloged = true;
 }
 
-const logout = async () => {
-  // if (processing.value) return
+// const logout = async () => {
+//   // if (processing.value) return
 
-  // processing.value = true
-  console.log("qsdqsdqs");
-  axios
-    .post("logout")
-    .then((response) => {
-      localStorage.removeItem("loggedIn");
-      router.push("/login");
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .finally(() => {
-      processing.value = false;
-    });
-};
+//   // processing.value = true
+//   console.log("qsdqsdqs");
+//   axios
+//     .post("logout")
+//     .then((response) => {
+//       localStorage.removeItem("loggedIn");
+//       router.push("/login");
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     })
+//     .finally(() => {
+//       processing.value = false;
+//     });
+// };
 
 emitter.on("cartCount", function (count) {
   cartCount.value = count;
@@ -144,12 +144,17 @@ emitter.on("cartCount", function (count) {
         >
           <li>
             <router-link to="/profile"> Profile</router-link>
-            
           </li>
           <li><a>Settings</a></li>
           <li>
-            
-            <a @click="logout">Logout</a>
+            <button
+              @click="logout"
+              type="button"
+              :class="{ 'opacity-25': processing }"
+              :disabled="processing"
+            >
+              Log out
+            </button>
           </li>
         </ul>
       </div>

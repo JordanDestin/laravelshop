@@ -5,7 +5,7 @@ import useProductsBack from "../../../composable/admin/product/productBack.js";
 import useCategories from "../../../composable/categories.js";
 import { TailwindPagination } from "laravel-vue-pagination";
 
-const { products, getAllProducts } = useProductsBack();
+const { products, getAllProducts, deleteProduct } = useProductsBack();
 const { getCategories, categories } = useCategories();
 
 const selectCategory = ref("");
@@ -29,16 +29,15 @@ onMounted(async () => {
     </header>
     <div class="text-right pr-5">
       <router-link :to="{ path: 'create-product' }">
-      <button
-        type="button"
-        class="justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 bg-indigo-500"
-      >
-        Ajouter un produit
-      </button>
-    </router-link>
+        <button
+          type="button"
+          class="justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 bg-indigo-500"
+        >
+          Ajouter un produit
+        </button>
+      </router-link>
     </div>
     <div>
-      
       <select
         v-model="selectCategory"
         class="inline-block mt-1rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 mb-2"
@@ -59,6 +58,9 @@ onMounted(async () => {
                 <div class="font-semibold text-left">Nom du produit</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div class="font-semibold text-left">Nom du produit</div>
+              </th>
+              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div class="font-semibold text-left">Catégorie</div>
               </th>
 
@@ -75,11 +77,21 @@ onMounted(async () => {
                 <div class="font-semibold text-left">Tendance</div>
               </th>
               <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"></th>
+              <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"></th>
             </tr>
           </thead>
 
           <tbody class="text-sm" v-for="product in products.data" :key="product.id">
             <tr>
+              <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div><img
+                        class="w-full"
+                        :src="product.image"
+                        width="286"
+                        height="160"
+                        alt="Application 05"
+                      /></div>
+              </td>
               <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div>{{ product.name }}</div>
               </td>
@@ -107,12 +119,25 @@ onMounted(async () => {
                 </div>
               </td>
               <td>
-                <button
-                  type="button"
-                  class="inline-flex justify-center rounded-md border border-transparent bg-black px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                >
-                  voir
-                </button>
+                <router-link :to="{ path: 'product/'+product.id }">
+                  <button
+                    type="button"
+                    class="inline-flex justify-center rounded-md border border-transparent bg-black px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  >
+                    voir
+                  </button>
+                </router-link>
+              </td>
+              <td>
+          
+                  <button
+                    type="button"
+                    class="inline-flex justify-center rounded-md border border-transparent bg-black px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    @click.prevent="deleteProduct(product.id)"
+                  >
+                    Supprimé
+                  </button>
+              
               </td>
             </tr>
           </tbody>

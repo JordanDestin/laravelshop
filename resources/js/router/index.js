@@ -14,6 +14,7 @@ import Dashboard from "../components/admin/Dashboard.vue";
 import CreateProduct from "../components/admin/product/CreateProduct.vue";
 import ListProduct from "../components/admin/product/ListProduct.vue";
 import ListCategory from "../components/admin/category/ListCategory.vue";
+import Product from "../components/admin/product/Product.vue";
 
 const routes = [
     {
@@ -50,15 +51,18 @@ const routes = [
             {
                 path: "orders",
                 component: Orders,
+                meta: { requiresAuth: true },
             
             },
             {
                 path: "settings",
                 component: Settings,
+                meta: { requiresAuth: true },
             },
             {
                 path: "/detail-order/:id",
                 component: DetailOrder,
+                meta: { requiresAuth: true },
             },
         ],
     },
@@ -74,11 +78,15 @@ const routes = [
         path: "/dashboard",
         name: "dashboard",
         component: Dashboard,
-       
+        meta: { requiresAuth: true },
         children :[
             {
                 path:"list-product",
-                component: ListProduct
+                component: ListProduct,
+            },
+            {
+                path:"product/:productid",
+                component: Product
             },
             {
                 path:"create-product",
@@ -99,11 +107,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth && !localStorage.getItem("loggedIn")) {
+    if (to.meta.requiresAuth && !JSON.parse(localStorage.getItem("loggedIn"))) {
         next({ name: "Login" });
     } else {
         next();
     }
 });
+
+
 
 export default router;

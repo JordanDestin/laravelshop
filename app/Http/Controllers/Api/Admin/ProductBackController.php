@@ -22,6 +22,7 @@ class ProductBackController extends Controller
         ->when(request('category'), function($query){
             $query->where('category_id',request('category'));
         })
+        ->orderBy('created_at','desc')
         ->paginate(30);
 
         return ProductRessource::collection($products);
@@ -48,12 +49,54 @@ class ProductBackController extends Controller
             $relativePath = $this->saveImage($image);
         $data['image'] = URL::to(Storage::url($relativePath));           
         }
-
-      
-
         $product = Product::create($data);
-//dd('qsdqsd');
-        
+    
+        return new ProductRessource($product);
+    }
+
+    
+    // public function show( $id)
+    // {    
+       
+    //     $product = Product::with('category')
+    //     ->where('id', $id)
+    //     ->first();
+    //    // dd($product);
+    //   //return ProductRessource::collection($product);
+    //     return new ProductRessource($product);
+    // }
+
+    public function show(Product $product)
+    {
+       // dd($product);
+        return new ProductRessource($product);
+    }
+
+    public function update(Product $product,StoreProductRequest $request)
+    {
+
+     
+        $data = $request->validated();
+        $data['active'] = $request->has('active');
+        $data['tendance'] = $request->has('tendance');
+
+
+        // if($request->hasFile('image')){
+        //   //  $destinationPath ='img/';
+        //     $filename = time() . '.' .$request->file('image')->getClientOriginalName();
+
+        //     $data['image'] = $request->file('image')->storeAs('images',$filename,'public');  
+          
+        // }
+
+        $image = $data['image'] ?? null;
+               
+        if ($image) {
+            $relativePath = $this->saveImage($image);
+        $data['image'] = URL::to(Storage::url($relativePath));           
+        }
+       $product->update($data);
+    
         return new ProductRessource($product);
     }
 
@@ -67,7 +110,6 @@ class ProductBackController extends Controller
         // $image = InterventionImage::make($image);
         // $image->resize(300, 300);
 
-        
         if (!Storage::putFileAS('public/' . $path, $image, $image->getClientOriginalName())) {
             throw new \Exception("Unable to save file \"{$image->getClientOriginalName()}\"");
         }
@@ -78,6 +120,8 @@ class ProductBackController extends Controller
 
     public function destroy(Product $product)
     {
+        $product->delete();
 
+        return response()->noContent();
     }
 }
