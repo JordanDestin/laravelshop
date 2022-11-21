@@ -14,7 +14,7 @@ import Navbar from "./Navbar.vue";
           <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Mon Compte</h1>
         </header>
 
-        <div class="">
+        
           <hr class="pb-6 mt-6" />
           <div class="grid grid-cols-2">
             <router-link to="/profile/settings">
@@ -37,7 +37,20 @@ import Navbar from "./Navbar.vue";
               </div>
             </router-link>
           </div>
-        </div>
+          <div class="grid grid-cols-2">
+            <router-link to="/profile/address">
+              <div class="p-8">
+                <div
+                  class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg mb-4"
+                >
+                  Addresse
+                </div>
+              </div>
+            </router-link>
+
+         
+          </div>
+        
 
         <router-view></router-view>
       </div>

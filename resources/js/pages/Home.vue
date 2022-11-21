@@ -38,10 +38,10 @@ onMounted(async () => {
 
 <template>
   <Navbar />
-  <div class="flex h-screen overflow-hidden">
-    <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+ 
       <main>
-        <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+        <!-- <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto"> -->
+       
           <!-- Filters -->
           <div class="mb-4 border-b flex border-slate-200">
             <ul
@@ -62,9 +62,10 @@ onMounted(async () => {
           <!-- Page content -->
           <div>
             <Carousel />
-            <Categories />
+            
             <!-- Cards 2 (Digital Goods) -->
-            <div class="mt-8">
+            <div class="mt-8 container w-full max-w-5xl mx-auto">
+              <Categories />
               <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">
                 Digital Goods
               </h2>
@@ -162,11 +163,10 @@ onMounted(async () => {
                 />
               </div>
             </div>
-          </div>
+         
         </div>
       </main>
-    </div>
-  </div>
+ 
 </template>
 
 <style lang="scss" scoped></style>

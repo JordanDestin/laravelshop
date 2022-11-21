@@ -26,8 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' =>'required',
             'description' =>'required',
-            'quantity_product' => 'required|integer',
-        //    'image' => 'required',
+            'quantity_product' => 'required|integer', 
             'active' =>'required',
             'price' =>'required|integer',
             'tendance' => 'required',

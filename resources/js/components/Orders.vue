@@ -21,7 +21,7 @@ onMounted(async () => {
   <div class="bg-white shadow-lg rounded-sm border border-slate-200 relative">
     <header class="px-5 py-4">
       <h2 class="font-semibold text-slate-800">
-        Mes commandes <span class="text-slate-400 font-medium">442</span>
+        Mes commandes <span class="text-slate-400 font-medium">44s2</span>
       </h2>
     </header>
     <div>

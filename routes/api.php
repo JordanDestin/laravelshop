@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Commerce\CategoryController;
 use App\Http\Controllers\Api\Commerce\CartController;
 use App\Http\Controllers\Api\Commerce\StripeCheckoutController;
 use App\Http\Controllers\Api\Commerce\OrderController;
+use App\Http\Controllers\Api\Commerce\AddressController;
 
 use App\Http\Controllers\Api\Admin\ProductBackController;
 use App\Http\Controllers\Api\Admin\UserBackController;
@@ -38,6 +39,9 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
      Route::post('orders',[OrderController::class,'store'])->name('orders.store');
 
      Route::get('order/{id}',[OrderController::class,'detailOrder'])->name('order.detailOrder');
+
+     Route::get('address',[AddressController::class,'index']);
+     Route::post('address',[AddressController::class,'store']);
 
      //ADMIN
      Route::apiResource('admin-products', ProductBackController::class);

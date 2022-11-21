@@ -28,12 +28,12 @@ emitter.on("cartCount", function (count) {
   <div class="navbar bg-base-100">
     <div class="flex-1">
       <router-link :to="{ path: '/' }">
-        <button class="btn btn-ghost normal-case text-xl">daisyUI</button>
+        <button class="btn btn-ghost normal-case text-xl">Shop</button>
       </router-link>
     </div>
     <div class="flex-none">
       <!-- Search form -->
-      <div class="max-w-xl mb-5">
+      <!-- <div class="max-w-xl mb-5">
         <form class="relative">
           <label for="app-search" class="sr-only">Search</label>
           <input
@@ -61,7 +61,7 @@ emitter.on("cartCount", function (count) {
             </svg>
           </button>
         </form>
-      </div>
+      </div> -->
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-ghost btn-circle">
           <div class="indicator">

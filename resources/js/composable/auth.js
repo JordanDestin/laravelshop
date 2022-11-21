@@ -3,8 +3,8 @@ import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 
 const user = reactive({
-    name:'',
-    email:''
+    name: "",
+    email: "",
 });
 
 export default function useAuth() {
@@ -21,28 +21,29 @@ export default function useAuth() {
         name: "",
         email: "",
         password: "",
-        password_confirmation: ""
+        password_confirmation: "",
     });
 
     const submitRegister = async () => {
-        console.log(registerForm)
+    
         if (processing.value) return;
 
         processing.value = true;
         validationErrors.value = {};
-        await axios.post("register",registerForm).then((response) => {
-            console.log(response)
-        })
-        .catch((error) => {
-            if (error.response?.data) {
-                validationErrors.value = error.response.data.errors;
-            }
-        })
-        .finally(() => (processing.value = false));
+        await axios
+            .post("register", registerForm)
+            .then((response) => {
+                loginUser(response);
+            })
+            .catch((error) => {
+                if (error.response?.data) {
+                    validationErrors.value = error.response.data.errors;
+                }
+            })
+            .finally(() => (processing.value = false));
     };
 
     const submitLogin = async () => {
-  
         if (processing.value) return;
 
         processing.value = true;
@@ -62,23 +63,22 @@ export default function useAuth() {
     };
 
     const loginUser = (response) => {
-        user.name =response.data.name;
-        user.email =response.data.email;
+        user.name = response.data.name;
+        user.email = response.data.email;
         localStorage.setItem("loggedIn", JSON.stringify(true));
         router.push("/");
     };
 
     const getUser = () => {
-        axios.get('api/user')
-            .then(response =>{
-                loginUser(response)
-            })
-    }
+        axios.get("api/user").then((response) => {
+            loginUser(response);
+        });
+    };
 
     const logout = async () => {
-         if (processing.value) return
+        if (processing.value) return;
 
-         processing.value = true
+        processing.value = true;
         console.log("qsdqsdqs");
         axios
             .post("logout")

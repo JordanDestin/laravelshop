@@ -19,7 +19,7 @@ onMounted(getCategories);
   
   <!-- Cards 6 (Trending Now) -->
   <div class="mt-8">
-    <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">Trending Now</h2>
+    <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">Catégories</h2>
     <div class="grid grid-cols-12 gap-6">
       <!-- Card 1 -->
       <div

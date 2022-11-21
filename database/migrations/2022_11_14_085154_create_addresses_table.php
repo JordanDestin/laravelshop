@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('addressbis')->nullable();
             $table->string('postal', 10); 
             $table->string('city', 100);
-            $table->string('phone', 25);
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });

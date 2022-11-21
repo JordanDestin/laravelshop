@@ -17,7 +17,8 @@ import ListCategory from "../components/admin/category/ListCategory.vue";
 import Product from "../components/admin/product/Product.vue";
 import ListOrder from "../components/admin/orders/ListOrder.vue";
 import ListUser from "../components/admin/user/ListUser.vue";
-import OrdersUser from "../components/admin/user/UserOrder.vue"
+import OrdersUser from "../components/admin/user/UserOrder.vue";
+import Address from "../components/Address.vue";
 
 const routes = [
     {
@@ -55,7 +56,11 @@ const routes = [
                 path: "orders",
                 component: Orders,
                 meta: { requiresAuth: true },
-            
+            },
+            {
+                path: "/detail-order/:id",
+                component: DetailOrder,
+                meta: { requiresAuth: true },
             },
             {
                 path: "settings",
@@ -63,10 +68,11 @@ const routes = [
                 meta: { requiresAuth: true },
             },
             {
-                path: "/detail-order/:id",
-                component: DetailOrder,
+                path: "address",
+                component: Address,
                 meta: { requiresAuth: true },
             },
+            
         ],
     },
     
