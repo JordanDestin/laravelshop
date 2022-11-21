@@ -15,12 +15,12 @@ export default function useProfil() {
     const getAddress = async()=>{
 
         console.log('qsdqsd')
-        await axios
-        .get("api/adrress")
-        .then((response) => {
-            console.log(response.data)
-            addresses.value = response.data
-        })
+        await axios.get("/api/adresses").then((response) => {
+            addresses.value = response.data.data;
+            console.log(addresses.value);
+          });
+
+  
     }
 
     const submitAddress = async()=>{
@@ -29,7 +29,7 @@ export default function useProfil() {
         validationErrors.value = {};
         
         await axios
-        .post("/api/address", addressForm)
+        .post("/api/adresses", addressForm)
         .then((response) => {
             console.log(response)
             addresses.value = response.data

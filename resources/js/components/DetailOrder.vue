@@ -60,10 +60,18 @@ onMounted(() => {
             </thead>
             <tbody>
               <template v-for="item in order" v-bind:key="item.id">
+              
                 <tr>
                   <td class="hidden pb-4 md:table-cell">
                     <a href="#">
-                      <img src="" class="w-20 rounded" alt="Thumbnail" />
+                    <!-- <img
+                        class="w-full"
+                        :src="item.image"
+                        width="50"
+                        height="50"
+                        alt="Application 05"
+                      /> -->
+                      <img :src="item.image" class="w-20 rounded" alt="Thumbnail" />
                     </a>
                   </td>
                   <td>{{ item.name }}</td>

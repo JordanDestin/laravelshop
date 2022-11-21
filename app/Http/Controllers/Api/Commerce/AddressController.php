@@ -14,13 +14,10 @@ use App\Models\Address;
 class AddressController extends Controller
 {
     public function index()
-    {
-      
-        $listAddress= auth()->user()->addresses;
-
-      
-
-        return ProductRessource::collection($listAddress);
+    {     
+        $listAddress= Address::where('user_id', Auth::id())->get();
+//dd($listAddress);
+        return AddressRessource::collection($listAddress);
 
         // return response()->json([
         //     'addresses'=>$listAddress
