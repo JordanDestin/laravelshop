@@ -20,12 +20,8 @@ class AddressesController extends Controller
     public function index()
     {
         $listAddress= Address::where('user_id', Auth::id())->get();
-//dd($listAddress);
-        return AddressRessource::collection($listAddress);
 
-        // return response()->json([
-        //     'addresses'=>$listAddress
-        // ], 200); 
+        return AddressRessource::collection($listAddress);
     }
 
     /**
@@ -41,9 +37,7 @@ class AddressesController extends Controller
        
         $address = Address::create($data);
 
-        return response()->json([
-            'address'=>$address
-        ], 200); 
+        return AddressRessource::collection($address);
     }
 
     /**

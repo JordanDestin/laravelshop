@@ -42,9 +42,6 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
 
      Route::get('order/{id}',[OrderController::class,'detailOrder'])->name('order.detailOrder');
 
-    Route::get('listaddress', [AddressController::class,'index']);
-     Route::post('address',[AddressController::class,'store']);
-
     Route::apiResource('adresses', AddressesController::class);
 
      //ADMIN
