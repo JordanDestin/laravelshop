@@ -4,11 +4,13 @@ import Home from "../pages/Home.vue";
 import Login from "../pages/auth/Login.vue";
 import Register from "../pages/auth/Register.vue";
 import CartContent from "../components/CartContent.vue";
-import Profile from "../components/Profile.vue";
+
+
+import Profile from "../components/commerce/profile/Profile.vue"
 import Payment from "../pages/Payment.vue";
-import Orders from "../components/Orders.vue";
+import Orders from "../components/commerce/profile/order/Orders.vue";
 import Settings from "../components/setting.vue";
-import DetailOrder from "../components/DetailOrder.vue";
+import DetailOrder from "../components/commerce/profile/order/DetailOrder.vue";
 import ThankYou from "../components/ThankYou.vue";
 import Dashboard from "../components/admin/Dashboard.vue";
 import CreateProduct from "../components/admin/product/CreateProduct.vue";
@@ -18,7 +20,9 @@ import Product from "../components/admin/product/Product.vue";
 import ListOrder from "../components/admin/orders/ListOrder.vue";
 import ListUser from "../components/admin/user/ListUser.vue";
 import OrdersUser from "../components/admin/user/UserOrder.vue";
-import Address from "../components/Address.vue";
+import ListAddress from "../components/commerce/profile/address/ListAddress.vue";
+import CreateAddress from "../components/commerce/profile/address/CreateAddress.vue";
+import Address from "../components/commerce/profile/address/Address.vue";
 
 const routes = [
     {
@@ -68,7 +72,17 @@ const routes = [
                 meta: { requiresAuth: true },
             },
             {
-                path: "address",
+                path: "list-address",
+                component: ListAddress,
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "create-address",
+                component: CreateAddress,
+                meta: { requiresAuth: true },
+            },
+            {
+                path: "/address/:id",
                 component: Address,
                 meta: { requiresAuth: true },
             },

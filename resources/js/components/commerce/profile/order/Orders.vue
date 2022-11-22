@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { formatPrice } from "../helper";
+import { formatPrice } from "../../../../helper";
 const listOrders = ref([]);
 
 const order = async () => {
@@ -21,7 +21,7 @@ onMounted(async () => {
   <div class="bg-white shadow-lg rounded-sm border border-slate-200 relative">
     <header class="px-5 py-4">
       <h2 class="font-semibold text-slate-800">
-        Mes commandes <span class="text-slate-400 font-medium">44s2</span>
+        Mes commandes <span class="text-slate-400 font-medium"></span>
       </h2>
     </header>
     <div>

@@ -37,7 +37,8 @@ class AddressesController extends Controller
        
         $address = Address::create($data);
 
-        return AddressRessource::collection($address);
+      //  return AddressRessource::collection($address);
+        return new AddressRessource($address);
     }
 
     /**
@@ -46,9 +47,10 @@ class AddressesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( $id)
     {
-        //
+        $address = Address::where('id', $id)->first();
+        return new AddressRessource($address);
     }
 
     /**
@@ -58,9 +60,13 @@ class AddressesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreAddressRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $address = Address::where('id', $id)->first();
+        $address->update($data);
+
+        return new AddressRessource($address);
     }
 
     /**
@@ -71,6 +77,10 @@ class AddressesController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $address = Address::where('id', $id)->first();
+        $address->delete();
+
+        return response()->noContent();
     }
 }

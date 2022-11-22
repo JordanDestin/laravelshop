@@ -44,6 +44,7 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
 
     Route::apiResource('adresses', AddressesController::class);
 
+
      //ADMIN
      Route::apiResource('admin-products', ProductBackController::class);
      

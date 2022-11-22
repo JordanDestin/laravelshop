@@ -56,17 +56,7 @@ export default function useProducts() {
         let response = await axios.delete("/api/carts/"+id);
     };
 
-    // const removeCart = async() =>{
-    //     await axios.delete("/api/carts/removecart");
-       
-    // };
 
-    // const cartTotal = async()=> {
-    //     let response = await axios.get("/api/carts/total");
-   
-    //      totalcart.value = response.data.cartTotal
-        
-    // };
 
 
 
@@ -81,8 +71,6 @@ export default function useProducts() {
         decreaseQuantity,
         destroyProduct,
         cartCount,
-       // cartTotal,
         totalcart,
-       // removeCart
     };
 }

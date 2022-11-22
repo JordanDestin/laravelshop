@@ -1,5 +1,5 @@
 <script setup>
-import Navbar from "./Navbar.vue";
+import Navbar from "../../Navbar.vue";
 </script>
 
 <template>
@@ -38,7 +38,7 @@ import Navbar from "./Navbar.vue";
             </router-link>
           </div>
           <div class="grid grid-cols-2">
-            <router-link to="/profile/address">
+            <router-link to="/profile/list-address">
               <div class="p-8">
                 <div
                   class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg mb-4"

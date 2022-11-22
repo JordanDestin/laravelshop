@@ -2,7 +2,7 @@
 import axios from "axios";
 import { reactive, ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-import { formatPrice } from "../helper/index";
+import { formatPrice } from "../../../../helper/index";
 
 const route = useRoute();
 console.log(route.params.id, "iddddddddddddd");

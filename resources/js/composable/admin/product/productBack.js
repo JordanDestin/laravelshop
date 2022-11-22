@@ -87,25 +87,19 @@ export default function useProductsBack() {
     };
 
     const deleteProduct = async (id) => {
-
-    
-
         await axios
-        .delete("/api/product/" + id)
-        .then((response) => {
-        
-            router.push({ path: "list-product" });
-            toast.success("Produit supprimé", {
-                position: "top-right",
+            .delete("/api/product/" + id)
+            .then((response) => {
+                router.push({ path: "list-product" });
+                toast.success("Produit supprimé", {
+                    position: "top-right",
+                });
+            })
+            .catch((error) => {
+                toast.error("Le produit n'a pas été supprimé", {
+                    position: "top-right",
+                });
             });
-        })
-        .catch((error) => {
-            toast.error("Le produit n'a pas été supprimé", {
-                position: "top-right",
-            });
-        })
-        
-        
     };
 
     return {
