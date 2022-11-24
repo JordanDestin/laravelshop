@@ -40,6 +40,11 @@ const routes = [
         path: "/login",
         name: "Login",
         component: Login,
+        beforeEnter: (to, from) => {
+            if(localStorage.getItem("loggedIn")){
+                return '/'
+            }
+        }
     },
     {
         path: "/register",
@@ -108,7 +113,7 @@ const routes = [
         path: "/dashboard",
         name: "dashboard",
         component: Dashboard,
-        meta: { requiresAuth: true },
+        meta: { requiresAuthBack: true },
         children :[
             {
                 path:"list-product",
@@ -157,6 +162,14 @@ router.beforeEach((to, from, next) => {
     }
 });
 
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuthBack && !JSON.parse(localStorage.getItem("loggedInBack"))) {
+        next({ path: "/login-back" });
+    } else {
+        next();
+    }
+});
 
 
 export default router;

@@ -25,6 +25,9 @@ Route::post('register', [
 Route::post('login-back', [
     \App\Http\Controllers\Api\Admin\AuthBackController::class, 'loginBack']);
 
+    Route::post('logout-back', [
+        \App\Http\Controllers\Auth\AuthBackController::class, 'logoutback']);
+
 Route::view('/{any?}', 'dashboard')
     ->name('dashboard')
     ->where('any', '.*');

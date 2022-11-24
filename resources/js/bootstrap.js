@@ -22,8 +22,8 @@ window.axios.interceptors.response.use(
             }
         }
         else if(error.response?.status === 403){
-            if (JSON.parse(localStorage.getItem('loggedIn'))) {
-                localStorage.setItem('loggedIn', false)
+            if (JSON.parse(localStorage.getItem('loggedInBack'))) {
+                localStorage.setItem('loggedInBack', false)
                 location.assign('/login-back')
             }
         }

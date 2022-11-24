@@ -36,10 +36,25 @@ export default function useAuthBack() {
             .finally(() => (processing.value = false));
     };
 
+    const logoutBack = async () => {
+       
+        axios
+            .post("logout ")
+            .then((response) => {
+                localStorage.removeItem("loggedInBack");
+                router.push("/login-back");
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    };
+
+
     const loginUserBack = (response) => {
         user.name = response.data.name;
         user.email = response.data.email;
-        localStorage.setItem("loggedIn", JSON.stringify(true));
+        localStorage.setItem("loggedInBack", JSON.stringify(true));
         router.push("/dashboard");
     };
 
@@ -47,6 +62,7 @@ export default function useAuthBack() {
         loginFormBack,
         submitLoginBack,
         processing,
-        validationErrors
+        validationErrors,
+        logoutBack
     }
 }

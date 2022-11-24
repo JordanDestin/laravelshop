@@ -13,7 +13,7 @@ onMounted(async () => {
   <div class="bg-white shadow-lg rounded-sm border border-slate-200 relative">
     <header class="px-5 py-4">
       <h1 class="font-semibold text-slate-800">
-        Mes produits <span class="text-slate-400 font-medium">442</span>
+        Mes utilisateurs <span class="text-slate-400 font-medium">442</span>
       </h1>
     </header>
 

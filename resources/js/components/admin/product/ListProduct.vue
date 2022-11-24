@@ -21,7 +21,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-white shadow-lg rounded-sm border border-slate-200 relative">
+  <div class=" ">
     <header class="px-5 py-4">
       <h1 class="font-semibold text-slate-800">
         Mes produits <span class="text-slate-400 font-medium">442</span>
