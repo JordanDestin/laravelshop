@@ -63,7 +63,7 @@ export default function useProfil() {
             .then((response) => {
                 console.log(response);
                 addresses.value = response.data;
-                router.push({ path: "list-address" });
+                router.push({ path: "/profile" });
                 toast.success("Addresse modifier avec succès", {
                     position: "top-right",
                 });

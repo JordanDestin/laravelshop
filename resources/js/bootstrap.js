@@ -21,6 +21,12 @@ window.axios.interceptors.response.use(
                 location.assign('/login')
             }
         }
+        else if(error.response?.status === 403){
+            if (JSON.parse(localStorage.getItem('loggedIn'))) {
+                localStorage.setItem('loggedIn', false)
+                location.assign('/login-back')
+            }
+        }
 
         return Promise.reject(error)
     }

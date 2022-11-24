@@ -46,15 +46,19 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
 
 
      //ADMIN
-     Route::apiResource('admin-products', ProductBackController::class);
-     
-     Route::get('list-user', [UserBackController::class,'index']);
-     Route::get('order-user/{user}', [UserBackController::class,'show']);
+   
+});
 
-     Route::get('product/{product}', [ProductBackController::class,'show']);
-     Route::post('product/{product}', [ProductBackController::class,'update']);
-     Route::delete('product/{product}', [ProductBackController::class,'destroy']);
- 
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::apiResource('admin-products', ProductBackController::class);
+     
+    Route::get('list-user', [UserBackController::class,'index']);
+    Route::get('order-user/{user}', [UserBackController::class,'show']);
+
+    Route::get('product/{product}', [ProductBackController::class,'show']);
+    Route::post('product/{product}', [ProductBackController::class,'update']);
+    Route::delete('product/{product}', [ProductBackController::class,'destroy']);
+
 });
 
 

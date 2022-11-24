@@ -23,6 +23,7 @@ import OrdersUser from "../components/admin/user/UserOrder.vue";
 import ListAddress from "../components/commerce/profile/address/ListAddress.vue";
 import CreateAddress from "../components/commerce/profile/address/CreateAddress.vue";
 import Address from "../components/commerce/profile/address/Address.vue";
+import LoginAdmin from "../components/admin/auth/LoginAdmin.vue";
 
 const routes = [
     {
@@ -97,6 +98,12 @@ const routes = [
         meta: { requiresAuth: true },
     },
     // ADMIN
+
+    {
+        path: "/login-back",
+        name: "Login-back",
+        component: LoginAdmin,
+    },
     {
         path: "/dashboard",
         name: "dashboard",
