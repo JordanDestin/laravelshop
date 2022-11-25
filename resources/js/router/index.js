@@ -4,12 +4,10 @@ import Home from "../pages/Home.vue";
 import Login from "../pages/auth/Login.vue";
 import Register from "../pages/auth/Register.vue";
 import CartContent from "../components/CartContent.vue";
-
-
-import Account from "../components/commerce/account/Account.vue"
+import Account from "../components/commerce/account/Account.vue";
+import Profile from "../components/commerce/account/profile/Profile.vue"
 import Payment from "../pages/Payment.vue";
 import Orders from "../components/commerce/account/order/Orders.vue";
-import Settings from "../components/setting.vue";
 import DetailOrder from "../components/commerce/account/order/DetailOrder.vue";
 import ThankYou from "../components/ThankYou.vue";
 import Dashboard from "../components/admin/Dashboard.vue";
@@ -41,10 +39,10 @@ const routes = [
         name: "Login",
         component: Login,
         beforeEnter: (to, from) => {
-            if(localStorage.getItem("loggedIn")){
-                return '/'
+            if (localStorage.getItem("loggedIn")) {
+                return "/";
             }
-        }
+        },
     },
     {
         path: "/register",
@@ -73,8 +71,8 @@ const routes = [
                 meta: { requiresAuth: true },
             },
             {
-                path: "settings",
-                component: Settings,
+                path: "profile",
+                component: Profile,
                 meta: { requiresAuth: true },
             },
             {
@@ -92,10 +90,9 @@ const routes = [
                 component: Address,
                 meta: { requiresAuth: true },
             },
-            
         ],
     },
-    
+
     {
         path: "/payment",
         name: "payment",
@@ -114,29 +111,29 @@ const routes = [
         name: "dashboard",
         component: Dashboard,
         meta: { requiresAuthBack: true },
-        children :[
+        children: [
             {
-                path:"list-product",
+                path: "list-product",
                 component: ListProduct,
             },
             {
-                path:"product/:productid",
-                component: Product
+                path: "product/:productid",
+                component: Product,
             },
             {
-                path:"create-product",
-                component: CreateProduct
+                path: "create-product",
+                component: CreateProduct,
             },
             {
-                path:"list-category",
-                component: ListCategory
+                path: "list-category",
+                component: ListCategory,
             },
             {
-                path:"list-order",
+                path: "list-order",
                 component: ListOrder,
             },
             {
-                path:"list-user",
+                path: "list-user",
                 component: ListUser,
             },
             {
@@ -144,8 +141,7 @@ const routes = [
                 component: OrdersUser,
                 meta: { requiresAuth: true },
             },
-            
-        ]
+        ],
     },
 ];
 
@@ -162,14 +158,15 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-
 router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuthBack && !JSON.parse(localStorage.getItem("loggedInBack"))) {
+    if (
+        to.meta.requiresAuthBack &&
+        !JSON.parse(localStorage.getItem("loggedInBack"))
+    ) {
         next({ path: "/login-back" });
     } else {
         next();
     }
 });
-
 
 export default router;

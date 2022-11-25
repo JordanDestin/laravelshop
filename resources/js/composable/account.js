@@ -16,8 +16,9 @@ export default function useProfil() {
         city: "",
     });
 
-    const getAllAddress = async () => {
+    const user = ref([]);
 
+    const getAllAddress = async () => {
         await axios.get("/api/adresses").then((response) => {
             addresses.value = response.data.data;
             console.log(addresses.value);
@@ -46,20 +47,17 @@ export default function useProfil() {
             });
     };
 
-    const getAddress = async(id) =>{
-       
-        await axios.get("/api/adresses/" + id)
-        .then((response) => {
-            address.value = response.data.data
-        })
-    }
+    const getAddress = async (id) => {
+        await axios.get("/api/adresses/" + id).then((response) => {
+            address.value = response.data.data;
+        });
+    };
 
-    const updateAddress = async(address)=>{
-       console.log(address,'qsdqsddgrgrt')
+    const updateAddress = async (address) => {
         validationErrors.value = {};
 
         await axios
-            .put("/api/adresses/"+address.id, address)
+            .put("/api/adresses/" + address.id, address)
             .then((response) => {
                 console.log(response);
                 addresses.value = response.data;
@@ -73,23 +71,29 @@ export default function useProfil() {
                     validationErrors.value = error.response.data.errors;
                 }
             });
-    }
+    };
 
-    const deleteAdress= async(id) =>{
+    const deleteAdress = async (id) => {
         await axios
-        .delete("/api/adresses/"+id)
-        .then((response)=>{
-            router.push({ path: "/account" });
-            toast.success("Addresse supprimer avec succès", {
-                position: "top-right",
+            .delete("/api/adresses/" + id)
+            .then((response) => {
+                router.push({ path: "/account" });
+                toast.success("Addresse supprimer avec succès", {
+                    position: "top-right",
+                });
+            })
+            .catch((error) => {
+                toast.error("L'addresse n'a pas été supprimé", {
+                    position: "top-right",
+                });
             });
-        })
-        .catch((error) => {
-            toast.error("L'addresse n'a pas été supprimé", {
-                position: "top-right",
-            });
+    };
+
+    const getUser = async () => {
+        await axios.get("/api/user").then((response) => {
+            user.value = response.data.data;
         });
-    }
+    };
 
     return {
         getAllAddress,
@@ -100,6 +104,8 @@ export default function useProfil() {
         getAddress,
         address,
         updateAddress,
-        deleteAdress
+        deleteAdress,
+        getUser,
+        user,
     };
 }

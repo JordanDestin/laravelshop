@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\Commerce\ProductController;
 use App\Http\Controllers\Api\Commerce\CategoryController;
 use App\Http\Controllers\Api\Commerce\CartController;
@@ -34,21 +35,17 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
     Route::get('/user', function(Request $request){
         return $request->user();
     }) ; 
-   
      Route::post('paymentIntent',[StripeCheckoutController::class,'paymentIntent']);
-
      Route::get('orders',[OrderController::class,'index'])->name('orders.index');
      Route::post('orders',[OrderController::class,'store'])->name('orders.store');
-
      Route::get('order/{id}',[OrderController::class,'detailOrder'])->name('order.detailOrder');
-
-    Route::apiResource('adresses', AddressesController::class);
-
-
-     //ADMIN
+     Route::apiResource('adresses', AddressesController::class);
+     Route::apiResource('user', UserController::class);
    
 });
 
+
+//ADMIN
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::apiResource('admin-products', ProductBackController::class);
      
