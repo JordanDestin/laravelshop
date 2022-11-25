@@ -25,7 +25,7 @@ class StoreAddressRequest extends FormRequest
     {
         return [
             'address' => 'required',
-            'addressbis' => 'string',
+          //  'addressbis' => 'string',
             'postal' => 'required',
             'city' => 'required',
            // 'user_id' => ['required','exists:user,id'],

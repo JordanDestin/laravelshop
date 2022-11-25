@@ -39,11 +39,13 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+
         $product = Product::where('id', $request->id)->first();
      
         // $count = (new CartRepository())->add($product);
-        $count = Cart::getContent()->sum('quantity');
+       
 
+        
         Cart::add([
             'id' => $product->id,
             'name' => $product->name,
@@ -55,6 +57,8 @@ class CartController extends Controller
           ]
         );
 
+        $count = Cart::getContent()->sum('quantity');
+      //  dd($count);
        // return response()->json(200);
          return response()->json([
              'count' => $count

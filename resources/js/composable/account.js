@@ -63,7 +63,7 @@ export default function useProfil() {
             .then((response) => {
                 console.log(response);
                 addresses.value = response.data;
-                router.push({ path: "/profile" });
+                router.push({ path: "/account" });
                 toast.success("Addresse modifier avec succès", {
                     position: "top-right",
                 });
@@ -79,7 +79,7 @@ export default function useProfil() {
         await axios
         .delete("/api/adresses/"+id)
         .then((response)=>{
-            router.push({ path: "/profile" });
+            router.push({ path: "/account" });
             toast.success("Addresse supprimer avec succès", {
                 position: "top-right",
             });

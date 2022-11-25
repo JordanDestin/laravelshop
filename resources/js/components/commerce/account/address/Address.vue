@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import useProfil from "../../../../composable/profile";
+import useProfil from "../../../../composable/account";
 import { useRoute } from "vue-router";
 const { validationErrors, getAddress, address, updateAddress, } = useProfil();
 const route = useRoute();

@@ -1,5 +1,5 @@
 <script setup>
-import useProfil from "../../../../composable/profile";
+import useProfil from "../../../../composable/account";
 
 const {
   addressForm,

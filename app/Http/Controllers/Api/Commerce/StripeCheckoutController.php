@@ -15,9 +15,6 @@ class StripeCheckoutController extends Controller
 {
     public function paymentIntent()
     {        
-
-
-   
         // This is your test secret API key.
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
 

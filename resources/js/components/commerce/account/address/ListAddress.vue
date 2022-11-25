@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import useProfil from "../../../../composable/profile";
+import useProfil from "../../../../composable/account";
 
 const { getAllAddress, addresses, deleteAdress } = useProfil();
 

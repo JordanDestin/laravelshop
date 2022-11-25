@@ -67,7 +67,7 @@ export default function useStripe() {
 
         switch (paymentIntent.status) {
             case "succeeded":
-                console.log("payeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                console.log("paye");
                 showMessage("Payment succeeded!");
          
                 break;

@@ -27,7 +27,7 @@ export default function useProducts() {
         contents.value = response.data.cartContent;
         totalcart.value = response.data.totalCart;
         cartCount.value = response.data.count
-       // console.log(cartCount.value,"coucou")
+        console.log(cartCount.value,"content")
     };
 
     const addProduct = async (id) => {

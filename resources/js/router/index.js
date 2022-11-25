@@ -6,11 +6,11 @@ import Register from "../pages/auth/Register.vue";
 import CartContent from "../components/CartContent.vue";
 
 
-import Profile from "../components/commerce/profile/Profile.vue"
+import Account from "../components/commerce/account/Account.vue"
 import Payment from "../pages/Payment.vue";
-import Orders from "../components/commerce/profile/order/Orders.vue";
+import Orders from "../components/commerce/account/order/Orders.vue";
 import Settings from "../components/setting.vue";
-import DetailOrder from "../components/commerce/profile/order/DetailOrder.vue";
+import DetailOrder from "../components/commerce/account/order/DetailOrder.vue";
 import ThankYou from "../components/ThankYou.vue";
 import Dashboard from "../components/admin/Dashboard.vue";
 import CreateProduct from "../components/admin/product/CreateProduct.vue";
@@ -20,9 +20,9 @@ import Product from "../components/admin/product/Product.vue";
 import ListOrder from "../components/admin/orders/ListOrder.vue";
 import ListUser from "../components/admin/user/ListUser.vue";
 import OrdersUser from "../components/admin/user/UserOrder.vue";
-import ListAddress from "../components/commerce/profile/address/ListAddress.vue";
-import CreateAddress from "../components/commerce/profile/address/CreateAddress.vue";
-import Address from "../components/commerce/profile/address/Address.vue";
+import ListAddress from "../components/commerce/account/address/ListAddress.vue";
+import CreateAddress from "../components/commerce/account/address/CreateAddress.vue";
+import Address from "../components/commerce/account/address/Address.vue";
 import LoginAdmin from "../components/admin/auth/LoginAdmin.vue";
 
 const routes = [
@@ -57,9 +57,9 @@ const routes = [
         component: ThankYou,
     },
     {
-        path: "/profile",
-        name: "Profile",
-        component: Profile,
+        path: "/account",
+        name: "Account",
+        component: Account,
         meta: { requiresAuth: true },
         children: [
             {
