@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone'
     ];
 
     /**
@@ -60,7 +61,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function adrresses(): HasMany
+    public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
     }

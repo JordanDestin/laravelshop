@@ -35,6 +35,7 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
     Route::get('/user', function(Request $request){
         return $request->user();
     }) ; 
+    // Route::post('paymentIntent/{id}',[StripeCheckoutController::class,'paymentIntent']);
      Route::post('paymentIntent',[StripeCheckoutController::class,'paymentIntent']);
      Route::get('orders',[OrderController::class,'index'])->name('orders.index');
      Route::post('orders',[OrderController::class,'store'])->name('orders.store');

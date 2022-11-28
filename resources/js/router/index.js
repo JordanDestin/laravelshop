@@ -3,9 +3,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import Login from "../pages/auth/Login.vue";
 import Register from "../pages/auth/Register.vue";
-import CartContent from "../components/CartContent.vue";
+import CartContent from "../components/commerce/CartContent.vue";
 import Account from "../components/commerce/account/Account.vue";
-import Profile from "../components/commerce/account/profile/Profile.vue"
+import Profile from "../components/commerce/account/profile/Profile.vue";
 import Payment from "../pages/Payment.vue";
 import Orders from "../components/commerce/account/order/Orders.vue";
 import DetailOrder from "../components/commerce/account/order/DetailOrder.vue";
@@ -22,6 +22,7 @@ import ListAddress from "../components/commerce/account/address/ListAddress.vue"
 import CreateAddress from "../components/commerce/account/address/CreateAddress.vue";
 import Address from "../components/commerce/account/address/Address.vue";
 import LoginAdmin from "../components/admin/auth/LoginAdmin.vue";
+import ChoiceAdresse from "../components/commerce/ChoiceAdress.vue";
 
 const routes = [
     {
@@ -33,6 +34,11 @@ const routes = [
         path: "/cartcontent",
         name: "CartContent",
         component: CartContent,
+    },
+    {
+        path: "/createaddress",
+        component: CreateAddress,
+       
     },
     {
         path: "/login",
@@ -90,11 +96,18 @@ const routes = [
                 component: Address,
                 meta: { requiresAuth: true },
             },
+            
         ],
+    },
+    {
+        path: "/choice-adress",
+        name: "ChoiceAdresse",
+        component: ChoiceAdresse,
+        meta: { requiresAuth: true },
     },
 
     {
-        path: "/payment",
+        path: "/payment/:adressId",
         name: "payment",
         component: Payment,
         meta: { requiresAuth: true },

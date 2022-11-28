@@ -14,6 +14,7 @@ export default function useProfil() {
         addressbis: "",
         postal: "",
         city: "",
+        delivery: false
     });
 
     const user = ref([]);
@@ -26,6 +27,8 @@ export default function useProfil() {
     };
 
     const createAddress = async () => {
+
+        console.log(addressForm)
         if (processing.value) return;
         processing.value = true;
         validationErrors.value = {};

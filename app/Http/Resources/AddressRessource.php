@@ -20,6 +20,8 @@ class AddressRessource extends JsonResource
             'addressbis' => $this->addressbis,
             'postal' => $this->postal,
             'city' => $this->city,
+            'delivery' => $this->delivery,
+            'billing' => $this->billing,
             'user_id' => $this->user_id,
         ];
     }

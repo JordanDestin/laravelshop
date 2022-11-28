@@ -1,8 +1,12 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import useProducts from "../composable/products";
-import { formatPrice } from "../helper/index";
-import Navbar from "./Navbar.vue";
+import useProducts from "../../composable/products";
+import { formatPrice } from "../../helper/index";
+import Navbar from "../Navbar.vue";
+import useProfil from "../../composable/account";
+
+
+const { getAllAddress, addresses } = useProfil();
 
 const {
   cartContent,
@@ -14,17 +18,21 @@ const {
   totalcart,
   cartCount,
   getCount,
- // removeCart,
+  // removeCart,
 } = useProducts();
 
-const cartTotals = computed(() => {
-  let price = Object.values(contents.value).reduce(
-    (acc, content) => (acc += content.price * content.quantity),
-    0
-  );
+// const cartTotals = computed(() => {
+//   let price = Object.values(contents.value).reduce(
+//     (acc, content) => (acc += content.price * content.quantity),
+//     0
+//   );
 
-  return formatPrice(price);
-});
+//   return formatPrice(price);
+// });
+
+const addressId = ref("");
+
+const picked = ref("");
 
 const decrease = async (id) => {
   await decreaseQuantity(id);
@@ -41,11 +49,17 @@ const deleteProduct = async (id) => {
   await cartContent();
 };
 
-onMounted(cartContent);
+//onMounted(cartContent);
+
+onMounted(async () => {
+  await cartContent();
+  await getAllAddress();
+});
 </script>
 
 <template>
-  <Navbar/>
+  <Navbar />
+
   <div>
     <div class="flex justify-center my-6">
       <div
@@ -131,6 +145,57 @@ onMounted(cartContent);
             </tbody>
           </table>
           <hr class="pb-6 mt-6" />
+          <div>
+            <header class="mb-2">
+              <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Addresse</h1>
+            </header>
+            <div class="text-center pr-5 mb-6">
+              <router-link to="/account">
+                <button
+                  type="button"
+                  class="justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 bg-indigo-500"
+                >
+                  Ajouter une adrresse
+                </button>
+              </router-link>
+            </div>
+            <div
+              class="bg-white shadow-lg rounded-sm border border-slate-200 p-4 mb-6"
+              draggable="true"
+              v-for="item in addresses"
+              :key="item.id"
+            >
+              <div class="sm:flex sm:justify-between sm:items-start">
+                <!-- Left side -->
+                <div class="grow mt-0.5 mb-3 sm:mb-0 space-y-3">
+                  <div class="flex items-center">
+                    <!-- Checkbox button -->
+
+                    <label class="items-center">
+                      <input
+                        type="radio"
+                        class="radio radio-primary"
+                        :value="item.id"
+                        v-model="addressId"
+                      />
+                      <p class="font-medium text-slate-800 ml-2">
+                        {{ item.address }}
+                      </p>
+                      <p class="font-medium text-slate-800 ml-2">
+                        {{ item.addressbis }}
+                      </p>
+                      <p class="font-medium text-slate-800 ml-2">
+                        {{ item.postal }}
+                      </p>
+                      <p class="font-medium text-slate-800 ml-2">
+                        {{ item.city }}
+                      </p>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="my-4 mt-6 -mx-2 lg:flex justify-end">
             <div class="lg:px-2 lg:w-1/2">
               <div class="p-4 bg-gray-100 rounded-full">
@@ -147,7 +212,7 @@ onMounted(cartContent);
                     class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                   ></div>
                 </div>
-                <router-link :to="{ path: '/payment' }">
+                <router-link :to="{ path: '/payment/'+ addressId}">
                   <button
                     class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
                   >

@@ -2,10 +2,18 @@
 import { onMounted } from "vue";
 import useStripe from "../composable/stripe";
 import Navbar from "../components/Navbar.vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const { getClientSecret, loadStripeElements, handleSubmit, checkStatus } = useStripe();
+
+
+console.log(route.params)
 onMounted(async () => {
-  await getClientSecret();
+  await getClientSecret(route.params.adressId);
+ // await getClientSecret();
+  
   await loadStripeElements();
   await checkStatus();
 });

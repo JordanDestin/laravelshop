@@ -5,7 +5,7 @@ import useProfil from "../../../../composable/account";
 const { getAllAddress, addresses, deleteAdress } = useProfil();
 
 onMounted(async () => {
-  getAllAddress();
+ await getAllAddress();
 });
 </script>
 
@@ -21,22 +21,29 @@ onMounted(async () => {
         </button>
       </router-link>
     </div>
+
+    <div
+      class="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 shadow-2xl text-center" v-if="addresses==''"
+    >
+      Aucune adresse
+    </div>
+
     <div class="grid grid-cols-12 gap-6">
       <div
         class="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 shadow-2xl"
         v-for="item in addresses"
         :key="item.id"
       >
-      <div class="text-right">
-        <button type="button" @click.prevent="deleteAdress(item.id)">
-          <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
-            <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
-            <path
-              d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z"
-            />
-          </svg>
-        </button>
-      </div>
+        <div class="text-right">
+          <button type="button" @click.prevent="deleteAdress(item.id)">
+            <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+              <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
+              <path
+                d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z"
+              />
+            </svg>
+          </button>
+        </div>
         <div class="flex flex-col h-full">
           <!-- Card top -->
           <div class="grow p-5">

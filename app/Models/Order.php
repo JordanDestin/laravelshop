@@ -13,7 +13,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable =['order_number','total_order','shipped_at','user_id'];
+    protected $fillable =['order_number','total_order','user_id','address_id'];
 
     public function user(): BelongsTo
     {
@@ -29,5 +29,15 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class)
             ->withPivot('total_quantity', 'total_price');
+    }
+
+    /**
+     * Get the address that owns the Order
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class);
     }
 }

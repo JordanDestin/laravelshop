@@ -13,8 +13,8 @@ use Cart;
 
 class StripeCheckoutController extends Controller
 {
-    public function paymentIntent()
-    {        
+    public function paymentIntent(Request $request)
+    {       dd($request);
         // This is your test secret API key.
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
 
@@ -42,7 +42,8 @@ class StripeCheckoutController extends Controller
             
             $order = auth()->user()->orders()->create([
                 'order_number' => uniqid(),
-                'total_order' => $cartTotal
+                'total_order' => $cartTotal,
+                //'address_id' => 
             ]);
 
             $cartContent = Cart::getContent()

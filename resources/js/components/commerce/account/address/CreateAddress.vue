@@ -5,8 +5,6 @@ const {
   addressForm,
   createAddress,
   validationErrors,
-  getAddress,
-  addresses,
 } = useProfil();
 </script>
 
@@ -74,6 +72,18 @@ const {
             class="input input-bordered"
             v-model="addressForm.city"
           />
+        </div>
+        <div class="text-red-600 mt-1">
+          <div v-for="message in validationErrors?.city">
+            {{ message }}
+          </div>
+        </div>
+        {{ address }}
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Adresse de livraison</span>
+          </label>
+          <input type="checkbox" checked="checked" class="checkbox checkbox-primary" v-model="addressForm.delivery"/>
         </div>
         <div class="text-red-600 mt-1">
           <div v-for="message in validationErrors?.city">

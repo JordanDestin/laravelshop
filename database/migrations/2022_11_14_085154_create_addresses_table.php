@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('addressbis')->nullable();
             $table->string('postal', 10); 
             $table->string('city', 100);
+            $table->boolean('delivery')->default(false)->nullable();
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });

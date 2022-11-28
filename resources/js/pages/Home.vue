@@ -64,6 +64,10 @@ onMounted(async () => {
         <Categories />
         <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">Digital Goods</h2>
 
+       
+
+    
+
         <div class="grid grid-cols-12 gap-6">
           <!-- Card 1 -->
           <div
@@ -82,7 +86,7 @@ onMounted(async () => {
                   alt="Application 05"
                 />
                 <!-- Popular label -->
-                <div class="absolute top-0 right-0 mt-4 mr-4">
+                <div class="absolute top-0 right-0 mt-4 mr-4" v-if="product.tendance">
                   <div
                     class="inline-flex items-center text-xs font-medium text-slate-100 bg-slate-900 bg-opacity-60 rounded-full text-center px-2 py-0.5"
                   >
@@ -94,7 +98,7 @@ onMounted(async () => {
                         d="M11.953 4.29a.5.5 0 00-.454-.292H6.14L6.984.62A.5.5 0 006.12.173l-6 7a.5.5 0 00.379.825h5.359l-.844 3.38a.5.5 0 00.864.445l6-7a.5.5 0 00.075-.534z"
                       />
                     </svg>
-                    <span>Popular</span>
+                    <span>Tendance</span>
                   </div>
                 </div>
               </div>

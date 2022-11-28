@@ -31,13 +31,13 @@ class AddressesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreAddressRequest $request)
-    {
+    {        
         $data = $request->validated();
+        $data['delivery'] = $request->has('active');
         $data['user_id']= Auth::id();
-       
+      
         $address = Address::create($data);
 
-      //  return AddressRessource::collection($address);
         return new AddressRessource($address);
     }
 
@@ -63,6 +63,7 @@ class AddressesController extends Controller
     public function update(StoreAddressRequest $request, $id)
     {
         $data = $request->validated();
+        $data['delivery'] = $request->has('active');
         $address = Address::where('id', $id)->first();
         $address->update($data);
 

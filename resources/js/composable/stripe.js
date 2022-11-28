@@ -11,12 +11,13 @@ export default function useStripe() {
     const paymentElement = ref(null);
     const stripe = ref(null);
 
-    const getClientSecret = async () => {
+    const getClientSecret = async (addressId) => {
         stripe.value = Stripe(import.meta.env.VITE_STRIPE_TEST_PUBLIC_KEY);
 
         let secret = await axios
-            .post("api/paymentIntent", {
-                headers: { "Content-Type": "application/json" },
+            .post("api/paymentIntent/", {
+                headers: { "Content-Type": "application/json" },id:addressId
+
             })
             .then((response) => response.data.clientSecret)
             .catch((error) => console.log(error, "erreur stripe"));

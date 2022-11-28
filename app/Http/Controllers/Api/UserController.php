@@ -17,9 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::where('id',Auth::id())->get();
+        $user = User::where('id',Auth::id())->first();
 
-        return UserResource::collection($user);
+        return new UserResource($user);
     }
 
     /**
