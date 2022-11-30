@@ -102,7 +102,6 @@ export default function useAuth() {
         submitRegister,
         registerForm,
         logout,
-        processing,
         getUser,
         user,
     };

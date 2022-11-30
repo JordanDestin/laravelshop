@@ -16,7 +16,8 @@ export default function useStripe() {
 
         let secret = await axios
             .post("api/paymentIntent/", {
-                headers: { "Content-Type": "application/json" },id:addressId
+                headers: { "Content-Type": "application/json" },
+                params : {id:addressId}
 
             })
             .then((response) => response.data.clientSecret)

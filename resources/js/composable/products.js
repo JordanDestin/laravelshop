@@ -32,7 +32,6 @@ export default function useProducts() {
 
     const addProduct = async (id) => {
 
-        console.log('coucou')
         let response = await axios.post("/api/carts", { id: id });
         
         cartCount.value = response.data.count;

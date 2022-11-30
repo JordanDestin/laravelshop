@@ -13,7 +13,7 @@ use Cart;
 
 class StripeCheckoutController extends Controller
 {
-    public function paymentIntent(Request $request)
+    public function paymentIntent($id)
     {       dd($request);
         // This is your test secret API key.
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
