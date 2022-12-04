@@ -13,16 +13,13 @@ const { products, getProducts, addProduct } = useProducts();
 const { getCategories, categories } = useCategories();
 
 const addToCart = async (id) => {
-  console.log(id);
   let carCount = await addProduct(id);
-
   emitter.emit("cartCount", carCount);
 };
 
 const selectCategorie = ref("");
 
 emitter.on("categoryId", function (id) {
-  console.log(id, "coucou");
   selectCategorie.value = id;
 });
 
@@ -38,45 +35,22 @@ onMounted(async () => {
 
 <template>
   <Navbar />
-
+  
   <main>
-    <!-- Filters -->
-    <!-- <div class="mb-4 border-b flex border-slate-200">
-      <ul
-        class="text-sm font-medium mx-4 sm:-mx-6 lg:-mx-8"
-        v-for="category in categories"
-        :key="category.id"
-      >
-        <li
-          class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8"
-        >
-          <a class="text-indigo-500 whitespace-nowrap" href="#0">{{ category.name }}</a>
-        </li>
-      </ul>
-    </div> -->
-
-    <!-- Page content -->
     <div>
       <Carousel />
-
-      <!-- Cards 2 (Digital Goods) -->
       <div class="mt-8 container w-full max-w-5xl mx-auto">
         <Categories />
-        <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">Digital Goods</h2>
-
-       
-
-    
-
+        <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5 mt-5">
+          Tous mes produit
+        </h2>
         <div class="grid grid-cols-12 gap-6">
-          <!-- Card 1 -->
           <div
             class="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden"
             v-for="product in products.data"
             :key="product.id"
           >
             <div class="flex flex-col h-full">
-              <!-- Image -->
               <div class="relative">
                 <img
                   class="w-full"
@@ -85,7 +59,6 @@ onMounted(async () => {
                   height="160"
                   alt="Application 05"
                 />
-                <!-- Popular label -->
                 <div class="absolute top-0 right-0 mt-4 mr-4" v-if="product.tendance">
                   <div
                     class="inline-flex items-center text-xs font-medium text-slate-100 bg-slate-900 bg-opacity-60 rounded-full text-center px-2 py-0.5"
@@ -102,11 +75,9 @@ onMounted(async () => {
                   </div>
                 </div>
               </div>
-              <!-- Card Content -->
+
               <div class="grow flex flex-col p-5">
-                <!-- Card body -->
                 <div class="grow">
-                  <!-- Header -->
                   <header class="mb-2">
                     <h3 class="text-lg text-slate-800 font-semibold mb-1">
                       {{ product.name }}
@@ -119,9 +90,8 @@ onMounted(async () => {
                       {{ product.description }}
                     </div>
                   </header>
-                  <!-- Rating and Price -->
+
                   <div class="flex flex-wrap items-center justify-between mb-5">
-                    <!-- Rating -->
                     <div class="flex items-center space-x-2 mr-2">
                       <svg
                         class="w-4 h-4 fill-current text-amber-500"
@@ -131,12 +101,12 @@ onMounted(async () => {
                           d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"
                         />
                       </svg>
-                      <!-- Rate -->
+
                       <div class="text-sm font-medium whitespace-nowrap">
                         <span>4.7</span> <span class="text-slate-400">(478)</span>
                       </div>
                     </div>
-                    <!-- Price -->
+
                     <div class="flex items-center space-x-2">
                       <div
                         class="inline-flex text-sm font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2 py-0.5"
@@ -146,7 +116,7 @@ onMounted(async () => {
                     </div>
                   </div>
                 </div>
-                <!-- Card footer -->
+
                 <button class="btn btn-primary" @click="addToCart(product.id)">
                   Ajouter au panier
                 </button>
