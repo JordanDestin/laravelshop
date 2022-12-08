@@ -1,24 +1,24 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import useProducts from "../../composable/products";
-import { formatPrice } from "../../helper/index";
-import Navbar from "../Navbar.vue";
-import useProfil from "../../composable/account";
+import useProducts from "../../../composable/products";
+import { formatPrice } from "../../../helper/index";
+import Navbar from "../../Navbar.vue";
+import useProfil from "../../../composable/account";
+import useCart from "../../../composable/cart";
 
 
 const { getAllAddress, addresses } = useProfil();
 
+const { cartContent,contents } = useCart();
+
 const {
-  cartContent,
-  contents,
+//  cartContent,
+ // contents,
   increaseQuantity,
   decreaseQuantity,
   destroyProduct,
-
   totalcart,
-  cartCount,
-  getCount,
-
+  cartCount
 } = useProducts();
 
 // const cartTotals = computed(() => {

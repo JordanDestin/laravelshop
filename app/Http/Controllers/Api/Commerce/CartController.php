@@ -17,8 +17,6 @@ class CartController extends Controller
      */
     public function index()
     {
-        // $cartContent =(new CartRepository())->content();
-
         $cartContent = Cart::getContent();
         $cartTotal = Cart::getTotal();
         $count = Cart::getContent()->sum('quantity');
@@ -26,8 +24,7 @@ class CartController extends Controller
         return response()->json([
             'cartContent' => $cartContent,
             'totalCart' => $cartTotal,
-            'count' => $count
-           
+            'count' => $count           
         ]);
     }
 
@@ -39,14 +36,10 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-
+        //dd($request->id);
         $product = Product::where('id', $request->id)->first();
      
-        // $count = (new CartRepository())->add($product);
-       
-
-        
-        Cart::add([
+         Cart::add([
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,

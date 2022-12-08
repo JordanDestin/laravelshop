@@ -36,15 +36,6 @@ class ProductBackController extends Controller
         $data['active'] = $request->has('active');
         $data['tendance'] = $request->has('tendance');
 
-
-        // if($request->hasFile('image')){
-        //   //  $destinationPath ='img/';
-        //     $filename = time() . '.' .$request->file('image')->getClientOriginalName();
-
-        //     $data['image'] = $request->file('image')->storeAs('images',$filename,'public');  
-          
-        // }
-
         $image = $data['image'] ?? null;
                
         if ($image) {

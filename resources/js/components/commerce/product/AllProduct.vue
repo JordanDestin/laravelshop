@@ -1,51 +1,33 @@
 <script setup>
 import { onMounted, watch, ref } from "vue";
-import useProducts from "../composable/products";
-import useCategories from "../composable/categories";
-import emitter from "tiny-emitter/instance";
-import Navbar from "../components/Navbar.vue";
-import Categories from "../components/Categories.vue";
-import Carousel from "../components/Carousel.vue";
-import { formatPrice } from "../helper";
+import useProducts from "../../../composable/products";
+import useCart from "../../../composable/cart";
+import { formatPrice } from "../../../helper";
 import { TailwindPagination } from "laravel-vue-pagination";
-import AllProduct from "../components/commerce/product/AllProduct.vue";
+import emitter from "tiny-emitter/instance";
 
-const { products, getProducts, addProduct } = useProducts();
-const { getCategories, categories } = useCategories();
+const { products, getProducts } = useProducts();
+const { addProductCart } = useCart();
 
-const addToCart = async (id) => {
-  let carCount = await addProduct(id);
-  emitter.emit("cartCount", carCount);
-};
+const selectCategorie = ref("");
 
-// const selectCategorie = ref("");
+emitter.on("categoryId", function (id) {
+  selectCategorie.value = id;
+});
 
-// emitter.on("categoryId", function (id) {
-//   selectCategorie.value = id;
-// });
+watch(selectCategorie, (current, previous) => {
+  getProducts(1, current);
+});
 
-// watch(selectCategorie, (current, previous) => {
-//   getProducts(1, current);
-// });
-
-// onMounted(async () => {
-//   await getProducts();
-//   await getCategories();
-// });
+onMounted(async () => {
+  await getProducts();
+ 
+});
 </script>
 
+
 <template>
-  <Navbar />
-  
-  <main>
-    <div>
-      <Carousel />
-      <div class="mt-8 container w-full max-w-5xl mx-auto">
-        <Categories />
-
-        <AllProduct/>
-
-        <!-- <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5 mt-5">
+    <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5 mt-5">
           Tous mes produit
         </h2>
         <div class="grid grid-cols-12 gap-6">
@@ -121,7 +103,7 @@ const addToCart = async (id) => {
                   </div>
                 </div>
 
-                <button class="btn btn-primary" @click="addToCart(product.id)">
+                <button class="btn btn-primary" @click="addProductCart(product.id)">
                   Ajouter au panier
                 </button>
               </div>
@@ -133,10 +115,10 @@ const addToCart = async (id) => {
             @pagination-change-page="(page) => getProducts(page, selectCategorie)"
             class="btn-group"
           />
-        </div> -->
-      </div>
-    </div>
-  </main>
+        </div>
 </template>
 
-<style lang="scss" scoped></style>
+
+<style lang="scss" scoped>
+
+</style>

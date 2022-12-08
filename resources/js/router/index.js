@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import Login from "../pages/auth/Login.vue";
 import Register from "../pages/auth/Register.vue";
-import CartContent from "../components/commerce/CartContent.vue";
+import CartContent from "../components/commerce/cart/CartContent.vue";
 import Account from "../components/commerce/account/Account.vue";
 import Profile from "../components/commerce/account/profile/Profile.vue";
 import Payment from "../pages/Payment.vue";

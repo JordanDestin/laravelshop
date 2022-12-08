@@ -10,18 +10,13 @@ const selectCategory = (id) => {
   emitter.emit("categoryId", id);
 };
 
-defineEmits(["selectCategory"]);
-
 onMounted(getCategories);
 </script>
 
 <template>
-  
-  <!-- Cards 6 (Trending Now) -->
   <div class="mt-8">
     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5">Catégories</h2>
     <div class="grid grid-cols-12 gap-6">
-      <!-- Card 1 -->
       <div
         class="relative col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden"
         v-for="category in categories"
@@ -38,14 +33,11 @@ onMounted(getCategories);
         <!-- Gradient -->
 
         <button type="button" @click="selectCategory(category.id)">
-          <!-- <button type="button" @click="$emit(selectCategory,category.id)"> -->
           <div
             class="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent"
             aria-hidden="true"
-          >
-       
-          </div>
-          <!-- Content -->
+          ></div>
+
           <div class="relative h-full p-5 flex flex-col justify-end">
             <h3 class="text-lg text-white font-semibold mt-16 mb-0.5">
               {{ category.name }}
@@ -56,5 +48,3 @@ onMounted(getCategories);
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
