@@ -10,6 +10,7 @@ import Payment from "../pages/Payment.vue";
 import Orders from "../components/commerce/account/order/Orders.vue";
 import DetailOrder from "../components/commerce/account/order/DetailOrder.vue";
 import ThankYou from "../components/ThankYou.vue";
+import CancelStripe from "../components/CancelStripe.vue";
 import Dashboard from "../components/admin/Dashboard.vue";
 import CreateProduct from "../components/admin/product/CreateProduct.vue";
 import ListProduct from "../components/admin/product/ListProduct.vue";
@@ -59,6 +60,11 @@ const routes = [
         path: "/thank-you",
         name: "Thankyou",
         component: ThankYou,
+    },
+    {
+        path: "/cancel-stripe",
+        name: "CancelStripe",
+        component: CancelStripe,
     },
     {
         path: "/account",

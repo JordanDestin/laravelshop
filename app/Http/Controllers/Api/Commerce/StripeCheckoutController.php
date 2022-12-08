@@ -66,18 +66,59 @@ class StripeCheckoutController extends Controller
 
     public function checkoutTest()
     {
-        dd('stripeeeeeeeee');
+     
 
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
 
-        $cartTotal = Cart::getTotal();
+        $cartContent = Cart::getContent();
+        
+
+        //dd($cartContent);
+
+        $lineItems = [];
+
+        foreach($cartContent as $item) {
+        // $quantity = 
+            //dd($item);
+            $quantity = $item->quantity;
+            $lineItems = [
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' => $item->name,
+        //                        'images' => [$product->image]
+                    ],
+                    'unit_amount' => $item->price * 100,
+                ],
+                'quantity' => $quantity,
+            ];
+        }
+
+ dd($lineItems);
+
+// $lineItems = array_map(fn(array $product) => [
+//     'quantity' =>$product['quantity'],
+//     'price_data' => [
+//         'currency' => 'EUR',
+//         'product_data' => [
+//             'name' => $product['name'],
+
+//         ],
+//         'unit_amount' => $product->price * 100,
+//     ]
+// ],$cartContent );
+
+// dd($lineItems);
 
 
+ 
         $session = \Stripe\Checkout\Session::create([
-            'line_items' => $lineItems,
+            'line_items' => $cartContent,
             'mode' => 'payment',
             'success_url' => 'http://localhost:8000/thank-you',
-            'cancel_url' => route('checkout.failure', [], true),
+            'cancel_url' => 'http://localhost:8000/cancel-stripe',
         ]);
+
+        return redirect($session->url);
     }
 }
