@@ -42,6 +42,8 @@ Route::group(['middleware' =>['auth:sanctum']], function(){
      Route::get('order/{id}',[OrderController::class,'detailOrder'])->name('order.detailOrder');
      Route::apiResource('adresses', AddressesController::class);
      Route::apiResource('user', UserController::class);
+
+     Route::post('checkouttest',[StripeCheckoutController::class,'checkoutTest']);
    
 });
 

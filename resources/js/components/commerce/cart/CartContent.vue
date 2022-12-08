@@ -1,25 +1,17 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import useProducts from "../../../composable/products";
 import { formatPrice } from "../../../helper/index";
 import Navbar from "../../Navbar.vue";
 import useProfil from "../../../composable/account";
 import useCart from "../../../composable/cart";
+import axios from "axios";
 
 
 const { getAllAddress, addresses } = useProfil();
 
-const { cartContent,contents } = useCart();
+const { cartContent,contents, increaseQuantity,decreaseQuantity, destroyProduct, totalcart, carCount } = useCart();
 
-const {
-//  cartContent,
- // contents,
-  increaseQuantity,
-  decreaseQuantity,
-  destroyProduct,
-  totalcart,
-  cartCount
-} = useProducts();
+//const { cartCount } = useProducts();
 
 // const cartTotals = computed(() => {
 //   let price = Object.values(contents.value).reduce(
@@ -30,30 +22,21 @@ const {
 //   return formatPrice(price);
 // });
 
+const chekcout = () =>{
+
+  console.log('couou')
+  axios.post('/api/checkouttest')
+  .then((response) =>{
+    console.log(response)
+  })
+  .catch((err) => console.log(err));
+}
+
 const addressId = ref("");
-
-const picked = ref("");
-
-const decrease = async (id) => {
-  await decreaseQuantity(id);
-  await cartContent();
-};
-
-const increase = async (id) => {
-  await increaseQuantity(id);
-  await cartContent();
-};
-
-const deleteProduct = async (id) => {
-  await destroyProduct(id);
-  await cartContent();
-};
-
-//onMounted(cartContent);
 
 onMounted(async () => {
   await cartContent();
-  await getAllAddress();
+ // await getAllAddress();
 });
 </script>
 
@@ -67,7 +50,7 @@ onMounted(async () => {
       >
         <header class="mb-2">
           <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">
-            Shopping Cart (3) ✨{{ formatPrice(totalcart) }} count{{ cartCount }}
+            Mon panier ✨{{ formatPrice(totalcart) }} count {{ carCount }}
           </h1>
         </header>
 
@@ -103,7 +86,7 @@ onMounted(async () => {
                   </td>
 
                   <td>
-                    <button type="button" @click="deleteProduct(content.id)">
+                    <button type="button" @click="destroyProduct(content.id)">
                       <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
                         <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
                         <path
@@ -115,7 +98,7 @@ onMounted(async () => {
                   <td class="justify-center md:justify-end md:flex mt-6">
                     <div class="w-20 h-10">
                       <div class="relative flex w-full h-8 space-x-5">
-                        <button @click="decrease(content.id)">-</button>
+                        <button @click="decreaseQuantity(content.id)">-</button>
                         <p
                           class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
                         >
@@ -126,7 +109,7 @@ onMounted(async () => {
                                 type="input"
                               
                                 class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" /> -->
-                        <button @click="increase(content.id)">+</button>
+                        <button @click="increaseQuantity(content.id)">+</button>
                       </div>
                     </div>
                   </td>
@@ -212,7 +195,7 @@ onMounted(async () => {
                     class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                   ></div>
                 </div>
-                <router-link :to="{ path: '/payment/'+ addressId}">
+                <!-- <router-link :to="{ path: '/payment/'+ addressId}">
                   <button
                     class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
                   >
@@ -231,7 +214,29 @@ onMounted(async () => {
                     </svg>
                     <span class="ml-2 mt-5px">Passer commande</span>
                   </button>
-                </router-link>
+                </router-link> -->
+
+                
+                  <button
+                    class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
+                    @click="chekcout()"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-prefix="far"
+                      data-icon="credit-card"
+                      class="w-8"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z"
+                      />
+                    </svg>
+                    <span class="ml-2 mt-5px">Passer commande test</span>
+                  </button>
+              
               </div>
             </div>
           </div>

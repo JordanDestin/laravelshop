@@ -25,7 +25,6 @@ onMounted(async () => {
 });
 </script>
 
-
 <template>
     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5 mt-5">
           Tous mes produit

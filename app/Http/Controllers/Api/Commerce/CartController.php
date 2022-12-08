@@ -107,8 +107,6 @@ class CartController extends Controller
 
     public function increase($id)
     {
-       // (new CartRepository())->increase($id);
-
        Cart::update($id, [
                 'quantity' => +1
             ]);
@@ -116,8 +114,6 @@ class CartController extends Controller
 
     public function decrease($id)
     {
-        // (new CartRepository())->decrease($id);
-
         Cart::update($id, [
             'quantity' => -1
         ]);
@@ -125,7 +121,6 @@ class CartController extends Controller
 
     public function cartTotal()
     {
-        // $cartTotal = (new CartRepository())->cartTotal();
         $cartTotal = Cart::getTotal();
 
         return response()->json([

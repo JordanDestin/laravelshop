@@ -10,11 +10,12 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use Cart;
+use Illuminate\Support\Arr;
 
 class StripeCheckoutController extends Controller
 {
     public function paymentIntent($id)
-    {       dd($request);
+    {       
         // This is your test secret API key.
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
 
@@ -61,5 +62,22 @@ class StripeCheckoutController extends Controller
             http_response_code(500);
             echo json_encode(['error' => $e->getMessage()]);
         }
+    }
+
+    public function checkoutTest()
+    {
+        dd('stripeeeeeeeee');
+
+        \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
+
+        $cartTotal = Cart::getTotal();
+
+
+        $session = \Stripe\Checkout\Session::create([
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => 'http://localhost:8000/thank-you',
+            'cancel_url' => route('checkout.failure', [], true),
+        ]);
     }
 }

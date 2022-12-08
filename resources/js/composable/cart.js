@@ -9,17 +9,20 @@ export default function useCart() {
     const toast = inject("toast");
 
     const cartContent = async () => {
-        axios.get("/api/carts").then((response) => {
+       await axios.get("/api/carts").then((response) => {
             contents.value = response.data.cartContent;
-            console.log(contents.value,'content value')
+            
             totalcart.value = response.data.totalCart;
+            
             carCount.value = response.data.count;
+
+            console.log(carCount.value,'carCount value')
         })
         .catch((err) => console.log(err));
     };
 
     const addProductCart = async (id) => {
-        axios.post("/api/carts", { id: id }).then((response) => {
+       await axios.post("/api/carts", { id: id }).then((response) => {
             carCount.value = response.data.count;
             emitter.emit("cartCount", carCount.value);
             toast.success("Article bien Ajouté", {
@@ -30,9 +33,29 @@ export default function useCart() {
         .catch((err) => console.log(err));
     };
 
+    const increaseQuantity = async(id) =>{
+       await axios.get("/api/carts/increase/"+id);
+       cartContent();
+    };
+
+    const decreaseQuantity = async(id) =>{
+        await axios.get("/api/carts/decrease/"+id);
+        cartContent();
+    };
+
+    const destroyProduct = async(id) =>{
+        await axios.delete("/api/carts/"+id);
+        cartContent();
+    };
+
     return {
         addProductCart,
         cartContent,
-        contents
+        contents,
+        totalcart,
+        carCount,
+        increaseQuantity,
+        decreaseQuantity,
+        destroyProduct
     };
 }
