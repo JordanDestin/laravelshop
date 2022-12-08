@@ -36,7 +36,7 @@ const addressId = ref("");
 
 onMounted(async () => {
   await cartContent();
- // await getAllAddress();
+  await getAllAddress();
 });
 </script>
 
@@ -195,7 +195,8 @@ onMounted(async () => {
                     class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                   ></div>
                 </div>
-                <!-- <router-link :to="{ path: '/payment/'+ addressId}">
+                <router-link :to="{ path: '/payment/'+ addressId}">
+                  <!-- <router-link to="/payment"> -->
                   <button
                     class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
                   >
@@ -214,10 +215,10 @@ onMounted(async () => {
                     </svg>
                     <span class="ml-2 mt-5px">Passer commande</span>
                   </button>
-                </router-link> -->
+                </router-link>
 
                 
-                  <button
+                  <!-- <button
                     class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
                     @click="chekcout()"
                   >
@@ -235,7 +236,7 @@ onMounted(async () => {
                       />
                     </svg>
                     <span class="ml-2 mt-5px">Passer commande test</span>
-                  </button>
+                  </button> -->
               
               </div>
             </div>

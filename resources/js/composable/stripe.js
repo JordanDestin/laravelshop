@@ -15,9 +15,9 @@ export default function useStripe() {
         stripe.value = Stripe(import.meta.env.VITE_STRIPE_TEST_PUBLIC_KEY);
 
         let secret = await axios
-            .post("api/paymentIntent/", {
+            .post("/api/paymentIntent/"+ addressId, {
                 headers: { "Content-Type": "application/json" },
-                params : {id:addressId}
+                // params : {id:addressId}
 
             })
             .then((response) => response.data.clientSecret)

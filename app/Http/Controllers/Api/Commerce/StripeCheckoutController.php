@@ -16,7 +16,8 @@ class StripeCheckoutController extends Controller
 {
     public function paymentIntent($id)
     {       
-        // This is your test secret API key.
+       // dd($id);
+       // This is your test secret API key.
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
 
         $cartTotal = Cart::getTotal();
@@ -44,7 +45,7 @@ class StripeCheckoutController extends Controller
             $order = auth()->user()->orders()->create([
                 'order_number' => uniqid(),
                 'total_order' => $cartTotal,
-                //'address_id' => 
+                'address_id' => $id
             ]);
 
             $cartContent = Cart::getContent()
