@@ -38,7 +38,7 @@ export default function useProfil() {
             .then((response) => {
                 console.log(response);
                 addresses.value = response.data;
-                router.push({ path: "list-address" });
+             //   router.push({ path: "list-address" });
                 toast.success("Addresse ajouter avec succès", {
                     position: "top-right",
                 });

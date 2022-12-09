@@ -23,7 +23,7 @@ import ListAddress from "../components/commerce/account/address/ListAddress.vue"
 import CreateAddress from "../components/commerce/account/address/CreateAddress.vue";
 import Address from "../components/commerce/account/address/Address.vue";
 import LoginAdmin from "../components/admin/auth/LoginAdmin.vue";
-import ChoiceAdresse from "../components/commerce/ChoiceAdress.vue";
+import ChoiceAdresse from "../components/commerce/cart/ChoiceAdress.vue";
 
 const routes = [
     {

@@ -15,8 +15,7 @@ use Illuminate\Support\Arr;
 class StripeCheckoutController extends Controller
 {
     public function paymentIntent($id)
-    {       
-       // dd($id);
+    {  
        // This is your test secret API key.
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
 
@@ -56,7 +55,7 @@ class StripeCheckoutController extends Controller
                     ]);
                 });
     
-               Cart::clear();  
+            Cart::clear();  
 
             echo json_encode($output);
         } catch (Error $e) {
@@ -65,61 +64,4 @@ class StripeCheckoutController extends Controller
         }
     }
 
-    public function checkoutTest()
-    {
-     
-
-        \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
-
-        $cartContent = Cart::getContent();
-        
-
-        //dd($cartContent);
-
-        $lineItems = [];
-
-        foreach($cartContent as $item) {
-        // $quantity = 
-            //dd($item);
-            $quantity = $item->quantity;
-            $lineItems = [
-                'price_data' => [
-                    'currency' => 'usd',
-                    'product_data' => [
-                        'name' => $item->name,
-        //                        'images' => [$product->image]
-                    ],
-                    'unit_amount' => $item->price * 100,
-                ],
-                'quantity' => $quantity,
-            ];
-        }
-
- dd($lineItems);
-
-// $lineItems = array_map(fn(array $product) => [
-//     'quantity' =>$product['quantity'],
-//     'price_data' => [
-//         'currency' => 'EUR',
-//         'product_data' => [
-//             'name' => $product['name'],
-
-//         ],
-//         'unit_amount' => $product->price * 100,
-//     ]
-// ],$cartContent );
-
-// dd($lineItems);
-
-
- 
-        $session = \Stripe\Checkout\Session::create([
-            'line_items' => $cartContent,
-            'mode' => 'payment',
-            'success_url' => 'http://localhost:8000/thank-you',
-            'cancel_url' => 'http://localhost:8000/cancel-stripe',
-        ]);
-
-        return redirect($session->url);
-    }
 }
