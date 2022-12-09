@@ -9,13 +9,18 @@ use App\Models\Product;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use App\Models\Address;
 use Cart;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class StripeCheckoutController extends Controller
 {
     public function paymentIntent($id)
     {  
+
+        $address_order = Address::where('id', $id)->first();
+
+        //dd($address_order->toArray());
        // This is your test secret API key.
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
 
@@ -43,9 +48,10 @@ class StripeCheckoutController extends Controller
             
             $order = auth()->user()->orders()->create([
                 'order_number' => uniqid(),
-                'total_order' => $cartTotal,
-                'address_id' => $id
+                'total_order' => $cartTotal
             ]);
+
+            $order->adresses()->create($address_order->toArray());
 
             $cartContent = Cart::getContent()
                 ->each(function($product)use($order){

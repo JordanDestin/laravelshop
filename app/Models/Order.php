@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
@@ -36,8 +37,18 @@ class Order extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function address(): BelongsTo
+    // public function address(): BelongsTo
+    // {
+    //     return $this->belongsTo(Address::class);
+    // }
+
+    /**
+     * Get all of the adresses for the OrderAdress
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function adresses(): HasMany
     {
-        return $this->belongsTo(Address::class);
+        return $this->hasMany(OrderAdress::class);
     }
 }

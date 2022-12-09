@@ -79,17 +79,7 @@ const {
           </div>
         </div>
         {{ address }}
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Adresse de livraison</span>
-          </label>
-          <input type="checkbox" checked="checked" class="checkbox checkbox-primary" v-model="addressForm.delivery"/>
-        </div>
-        <div class="text-red-600 mt-1">
-          <div v-for="message in validationErrors?.city">
-            {{ message }}
-          </div>
-        </div>
+        
         <div class="form-control mt-6">
           <button type="submit" class="btn btn-primary">Ajouter une addresse</button>
         </div>
