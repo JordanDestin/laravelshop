@@ -20,7 +20,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Navbar />
+  
   <div class="mt-6">
     <div class="flex justify-center my-6">
       <div

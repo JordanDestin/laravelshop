@@ -39,7 +39,7 @@ export default function useAuthBack() {
     const logoutBack = async () => {
        
         axios
-            .post("logout ")
+            .post("/logout ")
             .then((response) => {
                 localStorage.removeItem("loggedInBack");
                 router.push("/login-back");

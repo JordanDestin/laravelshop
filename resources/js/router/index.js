@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import Login from "../pages/auth/Login.vue";
 import Register from "../pages/auth/Register.vue";
+import Cart from "../components/commerce/cart/Cart.vue";
 import CartContent from "../components/commerce/cart/CartContent.vue";
 import Account from "../components/commerce/account/Account.vue";
 import Profile from "../components/commerce/account/profile/Profile.vue";
@@ -32,14 +33,25 @@ const routes = [
         component: Home,
     },
     {
+        path: "/cart",
+        name: "Cart",
+        component: Cart,
+    },
+    {
         path: "/cartcontent",
         name: "CartContent",
         component: CartContent,
     },
+
+    {
+        path: "/choice-adress",
+        name: "ChoiceAdresse",
+        component: ChoiceAdresse,
+        meta: { requiresAuth: true },
+    },
     {
         path: "/createaddress",
         component: CreateAddress,
-       
     },
     {
         path: "/login",
@@ -102,14 +114,7 @@ const routes = [
                 component: Address,
                 meta: { requiresAuth: true },
             },
-            
         ],
-    },
-    {
-        path: "/choice-adress",
-        name: "ChoiceAdresse",
-        component: ChoiceAdresse,
-        meta: { requiresAuth: true },
     },
 
     {
