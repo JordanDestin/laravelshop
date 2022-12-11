@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Commerce;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Repositories\CartRepository;
 use Cart;
 
 class CartController extends Controller
@@ -36,7 +35,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->id);
+     
         $product = Product::where('id', $request->id)->first();
      
          Cart::add([
@@ -51,8 +50,7 @@ class CartController extends Controller
         );
 
         $count = Cart::getContent()->sum('quantity');
-      //  dd($count);
-       // return response()->json(200);
+  
          return response()->json([
              'count' => $count
          ]);
@@ -89,15 +87,12 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-       // (new CartRepository())->remove($id);
        Cart::remove($id);
        return response()->json(200);
     }
 
     public function count()
     {
-        // $count = (new CartRepository())->count();
-
         $count = Cart::getContent()->sum('quantity');
 
         return response()->json([
@@ -130,8 +125,6 @@ class CartController extends Controller
 
     public function removeCart()
     {
-        // (new CartRepository())->removeCart();
-
         Cart::clear();
         return response()->json(200);
     }

@@ -63,18 +63,13 @@ onMounted(async () => {
             <span class="font-bold text-lg">{{ cartCount }} articles</span>
             <span class="text-info">Total panier: {{ formatPrice(totalcart) }}</span>
             <div class="card-actions">
-
-
-
-              <!-- <router-link :to="{ path: '/cartcontent' }">
-                <button class="btn btn-primary btn-block">Voir mon panier</button>
-              </router-link> -->
-
-              <router-link :to="{ path: '/cart' }">
+              <router-link :to="{ path: '/cartcontent' }">
                 <button class="btn btn-primary btn-block">Voir mon panier</button>
               </router-link>
-              
 
+              <!-- <router-link :to="{ path: '/cart' }">
+                <button class="btn btn-primary btn-block">Voir mon panier</button>
+              </router-link> -->
             </div>
           </div>
         </div>

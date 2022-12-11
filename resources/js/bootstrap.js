@@ -18,12 +18,14 @@ window.axios.interceptors.response.use(
         if (error.response?.status === 401 || error.response?.status === 419) {
             if (JSON.parse(localStorage.getItem('loggedIn'))) {
                 localStorage.setItem('loggedIn', false)
+                localStorage.removeItem("loggedIn");
                 location.assign('/login')
             }
         }
         else if(error.response?.status === 403){
             if (JSON.parse(localStorage.getItem('loggedInBack'))) {
                 localStorage.setItem('loggedInBack', false)
+                localStorage.removeItem("loggedInBack");
                 location.assign('/login-back')
             }
         }
