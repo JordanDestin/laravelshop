@@ -9,9 +9,12 @@ export default function useProducts() {
     const toast = inject('toast');
 
     const getProducts = async (page=1,category='' ) => {
-        await axios.get("api/products?page="+page+'&category='+category)
+        console.log(category)
+        await axios.get("/api/products?page="+page+'&category='+category)
         .then((response) => {
             products.value = response.data;
+
+            console.log(products.value,"jajajaj")
         });
     };
 

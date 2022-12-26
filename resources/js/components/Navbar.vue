@@ -5,10 +5,12 @@ import useAuth from "../composable/auth";
 import emitter from "tiny-emitter/instance";
 import { useRouter } from "vue-router";
 import useProducts from "../composable/products";
+import useCategories from "../composable/categories";
 
 const router = useRouter();
 const { processing, logout, user } = useAuth();
 const { cartContent, totalcart, cartCount } = useProducts();
+const { getCategories, categories } = useCategories();
 
 let isloged = false;
 
@@ -22,6 +24,7 @@ emitter.on("cartCount", function (count) {
 
 onMounted(async () => {
   await cartContent();
+  await getCategories();
 });
 </script>
 
@@ -150,4 +153,14 @@ onMounted(async () => {
       </div>
     </div>
   </div>
+  <div class="tabs justify-center">
+    <a class="tab" v-for="item in categories" :key="item.id">
+      <router-link :to="{ path: '/category/' + item.id }">
+        {{ item.name }}
+      </router-link>
+      
+      </a>
+  </div>
+
+
 </template>
