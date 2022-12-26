@@ -3,11 +3,13 @@ import { onMounted, ref } from "vue";
 import { formatPrice } from "../helper";
 import useAuth from "../composable/auth";
 import emitter from "tiny-emitter/instance";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import useProducts from "../composable/products";
 import useCategories from "../composable/categories";
+import Categories from "./Categories.vue";
 
-const router = useRouter();
+const route = useRoute();
+
 const { processing, logout, user } = useAuth();
 const { cartContent, totalcart, cartCount } = useProducts();
 const { getCategories, categories } = useCategories();
@@ -21,6 +23,11 @@ if (localStorage.getItem("loggedIn")) {
 emitter.on("cartCount", function (count) {
   cartCount.value = count;
 });
+
+
+
+
+emitter.emit("categoryId", route.params.id);
 
 onMounted(async () => {
   await cartContent();
@@ -161,6 +168,8 @@ onMounted(async () => {
       
       </a>
   </div>
+
+
 
 
 </template>

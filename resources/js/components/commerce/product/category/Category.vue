@@ -3,16 +3,26 @@ import { onMounted, watch, ref } from "vue";
 import { useRoute } from "vue-router";
 import useProducts from "../../../../composable/products";
 import Navbar from "../../../Navbar.vue";
+import emitter from "tiny-emitter/instance";
+import Categories from "../../../Categories.vue";
 
 const route = useRoute();
-const { products, getProducts, addProduct } = useProducts();
+const { products, getProducts } = useProducts();
 
 const selectCategorie = ref("");
 
-selectCategorie.value = route.params.id
+emitter.on("categoryId", function (id) {
 
-watch(selectCategorie.value, (current, previous) => {
-  getProducts(1, current);
+  console.log(id,"sssssssssssssss")
+  selectCategorie.value = id;
+});
+
+
+
+watch(selectCategorie, (current, previous) => {
+
+  console.log(current,current)
+    getProducts(1, current);
 });
 
 onMounted(async () => {
@@ -23,9 +33,11 @@ onMounted(async () => {
 
 <template>
   <Navbar />
+
+
   <div class="mt-8 container w-full max-w-5xl mx-auto">
     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5 mt-5">
-      Tous mes produit
+      Ma Catégorie
     </h2>
     <div class="grid grid-cols-12 gap-6">
       <div
