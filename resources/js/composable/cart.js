@@ -28,7 +28,6 @@ export default function useCart() {
             toast.success("Article bien Ajouté", {
                 position: "top-right",
             });
-            console.log(carCount.value);
         })
         .catch((err) => console.log(err));
     };

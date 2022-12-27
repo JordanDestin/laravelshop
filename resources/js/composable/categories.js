@@ -7,7 +7,6 @@ export default function useCategories() {
     const getCategories = async () => {
         await axios.get("/api/categories")
         .then((response)=> {
-            console.log(response)
             categories.value = response.data.data
         })
     }

@@ -25,7 +25,6 @@ export default function useAuth() {
     });
 
     const submitRegister = async () => {
-    
         if (processing.value) return;
 
         processing.value = true;

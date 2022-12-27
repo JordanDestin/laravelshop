@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, watchEffect } from "vue";
 import { formatPrice } from "../helper";
 import useAuth from "../composable/auth";
 import emitter from "tiny-emitter/instance";
@@ -25,9 +25,6 @@ emitter.on("cartCount", function (count) {
 });
 
 
-
-
-emitter.emit("categoryId", route.params.id);
 
 onMounted(async () => {
   await cartContent();

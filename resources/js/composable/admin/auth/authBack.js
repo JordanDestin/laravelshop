@@ -14,7 +14,6 @@ export default function useAuthBack() {
     const loginFormBack = reactive({
         email: "",
         password: "",
-
     });
 
     const submitLoginBack = async () => {
@@ -37,7 +36,6 @@ export default function useAuthBack() {
     };
 
     const logoutBack = async () => {
-       
         axios
             .post("/logout ")
             .then((response) => {
@@ -46,10 +44,8 @@ export default function useAuthBack() {
             })
             .catch((error) => {
                 console.log(error);
-            })
-
+            });
     };
-
 
     const loginUserBack = (response) => {
         user.name = response.data.name;
@@ -63,6 +59,6 @@ export default function useAuthBack() {
         submitLoginBack,
         processing,
         validationErrors,
-        logoutBack
-    }
+        logoutBack,
+    };
 }

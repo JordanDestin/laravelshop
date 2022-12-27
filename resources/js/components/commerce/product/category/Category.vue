@@ -1,32 +1,19 @@
 <script setup>
-import { onMounted, watch, ref } from "vue";
+import { onMounted, watchEffect, ref } from "vue";
 import { useRoute } from "vue-router";
 import useProducts from "../../../../composable/products";
+import useCart from "../../../../composable/cart";
 import Navbar from "../../../Navbar.vue";
-import emitter from "tiny-emitter/instance";
-import Categories from "../../../Categories.vue";
 
 const route = useRoute();
 const { products, getProducts } = useProducts();
+const { addProductCart } = useCart();
 
-const selectCategorie = ref("");
-
-emitter.on("categoryId", function (id) {
-
-  console.log(id,"sssssssssssssss")
-  selectCategorie.value = id;
-});
-
-
-
-watch(selectCategorie, (current, previous) => {
-
-  console.log(current,current)
-    getProducts(1, current);
+watchEffect(() => {
+  getProducts(1, route.params.id);
 });
 
 onMounted(async () => {
-  //await getProducts();
   await getProducts(1, route.params.id);
 });
 </script>
@@ -34,18 +21,14 @@ onMounted(async () => {
 <template>
   <Navbar />
 
-
   <div class="mt-8 container w-full max-w-5xl mx-auto">
-    <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5 mt-5">
-      Ma Catégorie
-    </h2>
+    <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5 mt-5">Ma Catégorie</h2>
     <div class="grid grid-cols-12 gap-6">
       <div
         class="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden"
         v-for="product in products.data"
         :key="product.id"
       >
-       
         <div class="flex flex-col h-full">
           <div class="relative">
             <img
@@ -110,7 +93,9 @@ onMounted(async () => {
               </div>
             </div>
 
-            <button class="btn btn-primary">Ajouter au panier</button>
+            <button class="btn btn-primary" @click="addProductCart(product.id)">
+              Ajouter au panier
+            </button>
           </div>
         </div>
       </div>

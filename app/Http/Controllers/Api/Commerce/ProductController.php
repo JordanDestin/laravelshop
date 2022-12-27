@@ -20,7 +20,10 @@ class ProductController extends Controller
             ->paginate(20);
            // dd($products);
 
-     return ProductRessource::collection($products);
+        $productTendance = Product::where('tendance', 1)
+                            ->get();
+
+     return ProductRessource::collection($products,$productTendance);
 
         // return response()->json([
         //     'listproducts'=>$products

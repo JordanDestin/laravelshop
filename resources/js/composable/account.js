@@ -14,7 +14,7 @@ export default function useProfil() {
         addressbis: "",
         postal: "",
         city: "",
-        delivery: false
+        delivery: false,
     });
 
     const user = ref([]);
@@ -22,13 +22,10 @@ export default function useProfil() {
     const getAllAddress = async () => {
         await axios.get("/api/adresses").then((response) => {
             addresses.value = response.data.data;
-            console.log(addresses.value);
         });
     };
 
     const createAddress = async () => {
-
-        console.log(addressForm)
         if (processing.value) return;
         processing.value = true;
         validationErrors.value = {};
@@ -36,9 +33,7 @@ export default function useProfil() {
         await axios
             .post("/api/adresses", addressForm)
             .then((response) => {
-                console.log(response);
                 addresses.value = response.data;
-             //   router.push({ path: "list-address" });
                 toast.success("Addresse ajouter avec succès", {
                     position: "top-right",
                 });
@@ -62,7 +57,6 @@ export default function useProfil() {
         await axios
             .put("/api/adresses/" + address.id, address)
             .then((response) => {
-                console.log(response);
                 addresses.value = response.data;
                 router.push({ path: "/account" });
                 toast.success("Addresse modifier avec succès", {
