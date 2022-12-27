@@ -5,6 +5,7 @@ import useCart from "../../../composable/cart";
 import { formatPrice } from "../../../helper";
 import { TailwindPagination } from "laravel-vue-pagination";
 import emitter from "tiny-emitter/instance";
+import Categories from "../../../components/Categories.vue";
 
 const { products, getProducts, getProductTendance, productstendance } = useProducts();
 const { addProductCart } = useCart();
@@ -19,20 +20,15 @@ watch(selectCategorie, (current, previous) => {
   getProducts(1, current);
 });
 
-const sliderIndex = ref(0);
+const currentPhoto = ref(0);
+
 function prevSlider() {
-  if (sliderIndex.value) {
-    sliderIndex.value--;
-  } else {
-    sliderIndex.value = productstendance.value.length - 1;
-  }
+  currentPhoto.value =
+    currentPhoto.value - 4 === productstendance.value.length ? 0 : currentPhoto.value - 4;
 }
 function nextSlider() {
-  if (sliderIndex.value < productstendance.value.length - 1) {
-    sliderIndex.value++;
-  } else {
-    sliderIndex.value = 0;
-  }
+  currentPhoto.value =
+    currentPhoto.value + 4 === productstendance.value.length ? 0 : currentPhoto.value + 4;
 }
 
 onMounted(async () => {
@@ -46,91 +42,94 @@ onMounted(async () => {
     Produit Tendance
   </h2>
 
-  <!-- Slider wrapper -->
-  <div class="w-full max-w-md relative">
-    <!-- Single Slider -->
-    <div
-      v-show="sliderIndex === index"
-      v-for="(item, index) in productstendance"
-      :key="index"
-    >
-      <div class="card w-96 bg-base-100 shadow-xl">
-        <figure>
-          <img
-            class="w-full"
-            :src="item.image"
-            width="286"
-            height="160"
-            alt="Application 05"
-          />
-        </figure>
-        <div class="card-body">
-          <h2 class="card-title">{{ item.name }}</h2>
-          <p>{{ item.description }}</p>
-          <div class="flex items-center space-x-2">
-            <div
-              class="inline-flex text-sm font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2 py-0.5"
-            >
-              {{ formatPrice(item.price) }}
+  <div class="w-full">
+    <!-- Slider wrapper -->
+    <transition-group name="slide-fade" tag="div" class="slider">
+      <div class="grid grid-cols-4 gap-6 relative">
+        <!-- Single Slider -->
+        <div
+          class="slider__item"
+          v-for="(item, index) in productstendance.slice(currentPhoto, currentPhoto + 4)"
+          :key="index"
+        >
+          <div class="card bg-base-100 shadow-xl">
+            <figure>
+              <img
+                class="w-full"
+                :src="item.image"
+                width="286"
+                height="160"
+                alt="Application 05"
+              />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">{{ item.name }}</h2>
+              <p>{{ item.description }}</p>
+              <div class="flex items-center space-x-2">
+                <div
+                  class="inline-flex text-sm font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2 py-0.5"
+                >
+                  {{ formatPrice(item.price) }}
+                </div>
+              </div>
+              <div class="card-actions justify-end">
+                <button class="btn btn-primary" @click="addProductCart(item.id)">
+                  Buy Now
+                </button>
+              </div>
             </div>
           </div>
-          <div class="card-actions justify-end">
-            <button class="btn btn-primary" @click="addProductCart(item.id)">
-              Buy Now
-            </button>
-          </div>
         </div>
+        <!-- Single Slider end -->
+
+        <!-- Arrows prev -->
+        <button
+          @click="prevSlider"
+          class="w-10 h-10 rounded-full bg-white hover:shadow-lg active:scale-90 transition absolute left-2 top-24 text-gray-700 flex items-center justify-center opacity-50 hover:opacity-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+        </button>
+        <!-- Arrows prev end -->
+
+        <!-- Arrows next -->
+        <button
+          @click="nextSlider"
+          class="w-10 h-10 rounded-full bg-white hover:shadow-lg active:scale-90 transition absolute right-2 top-24 text-gray-700 flex items-center justify-center opacity-50 hover:opacity-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </button>
+        <!-- Arrows next end -->
       </div>
-
-      
-    </div>
-    <!-- Single Slider end -->
-
-    <!-- Arrows prev -->
-    <button
-      @click="prevSlider"
-      class="w-10 h-10 rounded-full bg-white hover:shadow-lg active:scale-90 transition absolute left-2 top-24 text-gray-700 flex items-center justify-center opacity-50 hover:opacity-100"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15.75 19.5L8.25 12l7.5-7.5"
-        />
-      </svg>
-    </button>
-    <!-- Arrows prev end -->
-
-    <!-- Arrows next -->
-    <button
-      @click="nextSlider"
-      class="w-10 h-10 rounded-full bg-white hover:shadow-lg active:scale-90 transition absolute right-2 top-24 text-gray-700 flex items-center justify-center opacity-50 hover:opacity-100"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M8.25 4.5l7.5 7.5-7.5 7.5"
-        />
-      </svg>
-    </button>
-    <!-- Arrows next end -->
+    </transition-group>
   </div>
 
+  <Categories />
   <h2 class="text-xl leading-snug text-slate-800 font-bold mb-5 mt-5">
     Tous mes produit
   </h2>
@@ -219,4 +218,19 @@ onMounted(async () => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.slider__item {
+  display: inline-block;
+}
+
+.slider-fade-enter-active,
+.slider-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slider-fade-enter,
+.slider-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-10%);
+}
+</style>

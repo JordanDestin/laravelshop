@@ -3,7 +3,7 @@ import { ref, inject } from "vue";
 
 export default function useProducts() {
     const products = ref({});
-    const productstendance = ref({});
+    const productstendance = ref([]);
     const cartCount = ref(0);
     const totalcart = ref(0);
     const contents = ref([]);
