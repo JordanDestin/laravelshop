@@ -18,7 +18,6 @@ class ProductController extends Controller
                 $query->where('category_id',request('category'));
             })
             ->paginate(20);
-           // dd($products);
 
         $productTendance = Product::where('tendance', 1)
                             ->get();
@@ -26,7 +25,17 @@ class ProductController extends Controller
      return ProductRessource::collection($products,$productTendance);
 
         // return response()->json([
-        //     'listproducts'=>$products
+        //     'listproducts'=>$products,
+        //        'productsTendance' => $productTendance
         // ], 200); 
+    }
+
+    public function productTendance()
+    {
+        $productTendance = Product::where('tendance', 1)->get();
+
+        return response()->json([
+            'productsTendance' => $productTendance
+        ], 200); 
     }
 }

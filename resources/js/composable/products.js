@@ -3,6 +3,7 @@ import { ref, inject } from "vue";
 
 export default function useProducts() {
     const products = ref({});
+    const productstendance = ref({});
     const cartCount = ref(0);
     const totalcart = ref(0);
     const contents = ref([]);
@@ -15,6 +16,14 @@ export default function useProducts() {
                 products.value = response.data;
             });
     };
+
+    const getProductTendance = async()=>{
+        await axios
+            .get("/api/product-tendance")
+            .then((response)=>{
+                productstendance.value = response.data.productsTendance
+            })
+    }
 
     const getCount = async () => {
         let response = await axios.get("/api/carts/count");
@@ -53,7 +62,9 @@ export default function useProducts() {
 
     return {
         getProducts,
+        getProductTendance,
         products,
+        productstendance,
         addProduct,
         getCount,
         cartContent,

@@ -70,6 +70,7 @@ Route::get('carts/decrease/{id}', [CartController::class, 'decrease'])->name('ca
 Route::get('carts/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
 Route::get('carts/removecart', [CartController::class, 'removeCart'])->name('cart.removeCart');
 Route::get('products', [ProductController::class, 'index']);
+Route::get('product-tendance', [ProductController::class, 'productTendance']);
 Route::get('categories', [CategoryController::class, 'index']);
 
 
