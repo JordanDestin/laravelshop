@@ -34,6 +34,8 @@ class ProductController extends Controller
     {
         $productTendance = Product::where('tendance', 1)->get();
 
+      // $toto = $productTendance->chunk(4);
+
         return response()->json([
             'productsTendance' => $productTendance
         ], 200); 

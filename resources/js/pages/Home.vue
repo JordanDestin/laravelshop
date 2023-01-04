@@ -14,7 +14,7 @@ import AllProduct from "../components/commerce/product/AllProduct.vue";
     <div>
       <Carousel />
       <div class="mt-8 container w-full max-w-5xl mx-auto">
-        <Categories />
+        <!-- <Categories /> -->
         <AllProduct />
       </div>
     </div>

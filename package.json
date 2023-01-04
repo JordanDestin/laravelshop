@@ -21,7 +21,9 @@
         "laravel-vue-pagination": "^4.0.0",
         "tiny-emitter": "^2.1.0",
         "vue": "^3.2.36",
+ 
         "vue-loader": "^17.0.0",
-        "vue-router": "^4.0.13"
+        "vue-router": "^4.0.13",
+        "vue3-carousel": "^0.2.9"
     }
 }
