@@ -19,22 +19,15 @@ class ProductController extends Controller
             })
             ->paginate(20);
 
-        $productTendance = Product::where('tendance', 1)
-                            ->get();
+        $productTendance = Product::where('tendance', 1)->get();
 
      return ProductRessource::collection($products,$productTendance);
 
-        // return response()->json([
-        //     'listproducts'=>$products,
-        //        'productsTendance' => $productTendance
-        // ], 200); 
     }
 
     public function productTendance()
     {
         $productTendance = Product::where('tendance', 1)->get();
-
-      // $toto = $productTendance->chunk(4);
 
         return response()->json([
             'productsTendance' => $productTendance

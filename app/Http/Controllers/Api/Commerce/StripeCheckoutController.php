@@ -20,7 +20,6 @@ class StripeCheckoutController extends Controller
 
         $address_order = Address::where('id', $id)->first();
 
-        //dd($address_order->toArray());
        // This is your test secret API key.
         \Stripe\Stripe::setApiKey(\config('stripe.test_secret_key'));
 

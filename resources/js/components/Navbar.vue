@@ -74,9 +74,6 @@ onMounted(async () => {
                 <button class="btn btn-primary btn-block">Voir mon panier</button>
               </router-link>
 
-              <!-- <router-link :to="{ path: '/cart' }">
-                <button class="btn btn-primary btn-block">Voir mon panier</button>
-              </router-link> -->
             </div>
           </div>
         </div>

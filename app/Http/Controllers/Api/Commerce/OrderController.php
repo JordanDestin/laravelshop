@@ -15,14 +15,6 @@ class OrderController extends Controller
     {
         $listOrders= auth()->user()->orders;
 
-       
-
-        // $listOrders =  DB::table('orders')
-        //     ->leftjoin('order_product','order_product.order_id','=','orders.id')
-        //     ->join('products','products.id','=','order_product.product_id')
-        //     ->where('orders.user_id',Auth::id())
-        //     ->get();
-
         return response()->json([
             'orders'=>$listOrders
         ], 200); 

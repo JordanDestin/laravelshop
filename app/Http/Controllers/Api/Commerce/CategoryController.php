@@ -14,9 +14,6 @@ class CategoryController extends Controller
         $category = Category::all();
 
         return CategoryResource::collection($category);
-        // return response()->json([
-        //     'listcategory'=>$category
-        // ], 200); 
     }
 
     public function store (Request $request)
