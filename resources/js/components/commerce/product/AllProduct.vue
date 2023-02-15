@@ -35,7 +35,7 @@ const breakpoints = ref({
   },
   // 1024 and up
   1024: {
-    itemsToShow: 5,
+    itemsToShow: 4,
     snapAlign: "start",
   },
 });
@@ -53,8 +53,8 @@ onMounted(async () => {
 
   <Carousel :settings="settings" :breakpoints="breakpoints">
     <Slide v-for="slide in productstendance" :key="slide">
-      <div class="flex flex-col h-full">
-        <div class="relative">
+      <div class="card w-96 bg-base-100 shadow-xl">
+        <figure>
           <img
             class="w-full"
             :src="slide.image"
@@ -62,66 +62,16 @@ onMounted(async () => {
             height="160"
             alt="Application 05"
           />
-          <div class="absolute top-0 right-0 mt-4 mr-4" v-if="slide.tendance">
-            <div
-              class="inline-flex items-center text-xs font-medium text-slate-100 bg-slate-900 bg-opacity-60 rounded-full text-center px-2 py-0.5"
-            >
-              <svg
-                class="w-3 h-3 shrink-0 fill-current text-amber-500 mr-1"
-                viewBox="0 0 12 12"
-              >
-                <path
-                  d="M11.953 4.29a.5.5 0 00-.454-.292H6.14L6.984.62A.5.5 0 006.12.173l-6 7a.5.5 0 00.379.825h5.359l-.844 3.38a.5.5 0 00.864.445l6-7a.5.5 0 00.075-.534z"
-                />
-              </svg>
-              <span>Tendance</span>
-            </div>
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title">{{ slide.name }}</h2>
+
+          <div class="card-actions justify-center">
+            <button class="btn btn-primary">Buy Now</button>
           </div>
-        </div>
-
-        <div class="grow flex flex-col p-5">
-          <div class="grow">
-            <header class="mb-2">
-              <h3 class="text-lg text-slate-800 font-semibold mb-1">
-                {{ slide.name }}
-              </h3>
-
-              <h3 class="text-lg text-slate-800 font-semibold mb-1">
-                Catégorie: {{ slide.category }}
-              </h3>
-              <div class="text-sm">
-                {{ slide.description }}
-              </div>
-            </header>
-
-            <div class="flex flex-wrap items-center justify-between mb-5">
-              <div class="flex items-center space-x-2 mr-2">
-                <svg class="w-4 h-4 fill-current text-amber-500" viewBox="0 0 16 16">
-                  <path
-                    d="M10 5.934L8 0 6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934z"
-                  />
-                </svg>
-
-                <div class="text-sm font-medium whitespace-nowrap">
-                  <span>4.7</span> <span class="text-slate-400">(478)</span>
-                </div>
-              </div>
-
-              <div class="flex items-center space-x-2">
-                <div
-                  class="inline-flex text-sm font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2 py-0.5"
-                >
-                  {{ formatPrice(slide.price) }}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <button class="btn btn-primary" @click="addProductCart(slide.id)">
-            Ajouter au panier
-          </button>
         </div>
       </div>
+
     </Slide>
 
     <template #addons>
@@ -175,9 +125,9 @@ onMounted(async () => {
               <h3 class="text-lg text-slate-800 font-semibold mb-1">
                 Catégorie: {{ product.category }}
               </h3>
-              <div class="text-sm">
+              <!-- <div class="text-sm">
                 {{ product.description }}
-              </div>
+              </div> -->
             </header>
 
             <div class="flex flex-wrap items-center justify-between mb-5">
@@ -210,12 +160,17 @@ onMounted(async () => {
       </div>
     </div>
 
+    
+  </div>
+
+  <div class="w-full flex justify-center p-6">
     <TailwindPagination
       :data="products"
       @pagination-change-page="(page) => getProducts(page, selectCategorie)"
       class="btn-group"
     />
   </div>
+ 
 </template>
 
 <style scoped>
@@ -232,5 +187,8 @@ onMounted(async () => {
 .slider-fade-leave-to {
   opacity: 0;
   transform: translateX(-10%);
+}
+.carousel__slide {
+  padding: 5px;
 }
 </style>

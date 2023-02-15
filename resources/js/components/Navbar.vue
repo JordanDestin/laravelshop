@@ -157,13 +157,9 @@ onMounted(async () => {
   <div class="tabs justify-center">
     <a class="tab" v-for="item in categories" :key="item.id">
       <router-link :to="{ path: '/category/' + item.id }">
-        {{ item.name }}
+        <h1>{{ item.name }}</h1>
       </router-link>
       
       </a>
   </div>
-
-
-
-
 </template>

@@ -22,24 +22,11 @@ onMounted(getCategories);
         v-for="category in categories"
         :key="category.id"
       >
-        <!-- Image -->
-        <!-- <img
-          class="absolute w-full h-full object-cover"
-          src="#"
-          width="286"
-          height="160"
-          alt="Application 17"
-        /> -->
-        <!-- Gradient -->
-
         <button type="button" @click="selectCategory(category.id)">
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-slate-800 to-transparent"
-            aria-hidden="true"
-          ></div>
+          <div class="" aria-hidden="true"></div>
 
           <div class="relative h-full p-5 flex flex-col justify-end">
-            <h3 class="text-lg text-white font-semibold mt-16 mb-0.5">
+            <h3 class="text-lg text-black font-semibold mt-16 mb-0.5">
               {{ category.name }}
             </h3>
           </div>

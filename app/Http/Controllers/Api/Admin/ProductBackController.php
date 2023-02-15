@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\URL;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image as InterventionImage;
-
+use Spatie\Image\Image;
 use App\Http\Resources\UserResource;
 
 
@@ -39,36 +39,20 @@ class ProductBackController extends Controller
         $image = $data['image'] ?? null;
                
         if ($image) {
-            $relativePath = $this->saveImage($image);
-        $data['image'] = URL::to(Storage::url($relativePath));           
+            $relativePath = $this->saveImage($image);    
         }
         $product = Product::create($data);
     
         return new ProductRessource($product);
     }
 
-    
-    // public function show( $id)
-    // {    
-       
-    //     $product = Product::with('category')
-    //     ->where('id', $id)
-    //     ->first();
-    //    // dd($product);
-    //   //return ProductRessource::collection($product);
-    //     return new ProductRessource($product);
-    // }
-
     public function show(Product $product)
     {
-       // dd($product);
         return new ProductRessource($product);
     }
 
     public function update(Product $product,StoreProductRequest $request)
-    {
-
-     
+    {   
         $data = $request->validated();
         $data['active'] = $request->has('active');
         $data['tendance'] = $request->has('tendance');
@@ -99,6 +83,15 @@ class ProductBackController extends Controller
         if (!Storage::exists($path)) {
             Storage::makeDirectory($path, 0755, true);
         }
+//dd($image);
+
+        // $imagesss = Image::load($image->getClientOriginalName())
+        // ->width(200)
+        // ->height(200);
+
+       // $imagesss->resize(800, 600);
+
+       // dd($imagesss);
 
         // $image = InterventionImage::make($image);
         // $image->resize(300, 300);
