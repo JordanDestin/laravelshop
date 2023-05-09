@@ -23,8 +23,8 @@ export default function useCart() {
 
     const addProductCart = async (id) => {
        await axios.post("/api/carts", { id: id }).then((response) => {
-            carCount.value = response.data.count;
-            emitter.emit("cartCount", carCount.value);
+            emitter.emit("cartCount", response.data.count);
+            emitter.emit("totalcart", response.data.totalCart);
             toast.success("Article bien Ajouté", {
                 position: "top-right",
             });

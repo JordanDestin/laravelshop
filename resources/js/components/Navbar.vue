@@ -24,7 +24,9 @@ emitter.on("cartCount", function (count) {
   cartCount.value = count;
 });
 
-
+emitter.on("totalcart", function (total) {
+  totalcart.value = total;
+});
 
 onMounted(async () => {
   await cartContent();

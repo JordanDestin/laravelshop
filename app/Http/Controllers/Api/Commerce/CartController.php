@@ -50,9 +50,11 @@ class CartController extends Controller
         );
 
         $count = Cart::getContent()->sum('quantity');
+        $cartTotal = Cart::getTotal();
   
          return response()->json([
-             'count' => $count
+             'count' => $count,
+             'totalCart' => $cartTotal,
          ]);
     }
 

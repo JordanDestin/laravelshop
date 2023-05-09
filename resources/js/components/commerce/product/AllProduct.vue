@@ -67,7 +67,7 @@ onMounted(async () => {
           <h2 class="card-title">{{ slide.name }}</h2>
 
           <div class="card-actions justify-center">
-            <button class="btn btn-primary">Buy Now</button>
+            <button class="btn btn-primary"  @click="addProductCart(slide.id)">Buy Now</button>
           </div>
         </div>
       </div>
